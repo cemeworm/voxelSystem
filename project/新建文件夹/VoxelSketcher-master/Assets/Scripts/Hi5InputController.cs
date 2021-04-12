@@ -11,8 +11,8 @@ namespace Hi5_Interaction_Core
         
         private Hi5_Object_JudgeMent hi5_object_judgeMent_1;
         private Hi5_Object_JudgeMent hi5_object_judgeMent_2;
-/*        public Hi5_Switch_Mode_Button hi5_switch_mode_button;
-        public Hi5_World_Menu_Button hi5_world_menu_button;*/
+        public Hi5_Switch_Mode_Button hi5_switch_mode_button;
+        public Hi5_World_Menu_Button hi5_world_menu_button;
         public Hi5_Glove_Interaction_Hand HI5_Left_Human_Collider;
         public Hi5_Glove_Interaction_Hand HI5_Right_Human_Collider;
         private Hi5_Glove_Interaction_State hi5_Glove_Interaction_State_1;
@@ -307,15 +307,15 @@ namespace Hi5_Interaction_Core
 
             return state;
         }
+
+
         // Start is called before the first frame update
-        void Awake()
+         private void Awake()
         {
             hi5_object_judgeMent_1 = new Hi5_Object_JudgeMent();
             hi5_object_judgeMent_2 = new Hi5_Object_JudgeMent();
             HI5_Left_Human_Collider = GameObject.Find("HI5_Left_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
             HI5_Right_Human_Collider = GameObject.Find("HI5_Right_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
-            /*hi5_switch_mode_button = GameObject.Find("Buttonleft").GetComponent<Hi5_Switch_Mode_Button>();
-            hi5_world_menu_button = GameObject.Find("Buttonright").GetComponent<Hi5_World_Menu_Button>();*/
             hi5_Glove_Interaction_State_1 = null;
             hi5_Glove_Interaction_State_2 = null;
             hi5_object_judgeMent_1.mStateManager = hi5_Glove_Interaction_State_1;
@@ -333,47 +333,66 @@ namespace Hi5_Interaction_Core
             ButtonNot = GameObject.Find("ButtonNot").GetComponent<Hi5ButtonRect>();
             mergeOptions = GameObject.Find("MergeMenu").GetComponent<MergeOptions>();
             worldOptions = GameObject.Find("WorldMenu").GetComponent<WorldOptions>();
+        }
 
+        private void Start()
+        {
 
         }
 
         // Update is called once per frame
-        void Update()
+        private void Update()
         {
-            Debug.Log(GameObject.Find("ButtonCreate").transform.position);
-            if(worldOptions.gameObject.activeSelf)
+
+        }
+
+        internal void WorldChange()
+        {
+            if (worldOptions.gameObject.activeSelf)
             {
                 Debug.Log("worldOptions.gameObject.activeSelf");
-                if(ButtonCreate.IsTouch())
+                ButtonCreate.setButtonPosition(0.1f);
+                /*Debug.Log("button  "+"x:" + ButtonCreate.buttonPosition.x + " y:" + ButtonCreate.buttonPosition.y + " z:" + ButtonCreate.buttonPosition.y);
+                Debug.Log("finger  "+"x:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.x + " y:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.y + " z:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.z);
+*/
+                if (ButtonCreate.IsTouch())
                 {
                     worldOptions.OnPressForCreate();
                 }
-                else if (ButtonSwitch.IsTouch())
+                Debug.Log(ButtonCreate.buttonPosition);
+                ButtonSwitch.setButtonPosition(0.0f);
+                if (ButtonSwitch.IsTouch())
                 {
                     worldOptions.OnPressForSwitch();
                 }
-                else if (ButtonSave.IsTouch())
+                Debug.Log(ButtonCreate.buttonPosition);
+                ButtonSave.setButtonPosition(-0.1f);
+                if (ButtonSave.IsTouch())
                 {
                     worldOptions.OnPressForSave();
                 }
-                else if (ButtonLoad.IsTouch())
+                Debug.Log(ButtonCreate.buttonPosition);
+                ButtonLoad.setButtonPosition(-0.2f);
+                if (ButtonLoad.IsTouch())
                 {
                     worldOptions.OnPressForLoad();
                 }
             }
-            else if(mergeOptions.gameObject.activeSelf)
+            else if (mergeOptions.gameObject.activeSelf)
             {
                 Debug.Log("mergeOptions.gameObject.activeSelf");
-
+                ButtonAnd.setButtonPosition(0.1f);
                 if (ButtonAnd.IsTouch())
                 {
                     mergeOptions.OnPressForAdd();
                 }
-                else if (ButtonOr.IsTouch())
+                ButtonOr.setButtonPosition(0.0f);
+                if (ButtonOr.IsTouch())
                 {
                     mergeOptions.OnPressForOr();
                 }
-                else if (ButtonNot.IsTouch())
+                ButtonNot.setButtonPosition(-0.1f);
+                if (ButtonNot.IsTouch())
                 {
                     mergeOptions.OnPressForNot();
                 }

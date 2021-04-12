@@ -40,6 +40,7 @@ public class ToolManager : Singleton<ToolManager>
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("update:toolmanager");
         ToolModeUpdate();
         InteractionModeUpdate();
     }
@@ -81,7 +82,7 @@ public class ToolManager : Singleton<ToolManager>
                 }
                 else if (Tmode == ToolMode.PlaceVoxel)
                 {
-                    Tmode = ToolMode.FaceStretch;
+                    Tmode = ToolMode.ObjectManipulation;
                     ToolModeSwitching();
                 }
                 /*else if (Tmode == ToolMode.FaceStretch)

@@ -28,7 +28,10 @@ public class ObjectManipulator : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log("update:manipulator");
         ProcessInput(ToolManager.Instance.Imode);
+        vrcon.WorldChange();
+
     }
 
     private void ProcessInput(ToolManager.InteractionMode mode)
@@ -237,4 +240,5 @@ public class ObjectManipulator : MonoBehaviour
     {
         // TODO
     }
+
 }
