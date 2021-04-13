@@ -24,10 +24,14 @@ namespace Hi5_Interaction_Core
 
         internal bool IsTouch()
         {
-            Transform tailIndex = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4];
-            
-            float distance = Vector3.Distance(this.transform.position, tailIndex.position);
-            if (distance < 0.05f)
+            Transform tailIndex_right = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4];
+            Transform tailIndex_left = HI5_Left_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4];
+
+
+            float distance_1 = Vector3.Distance(this.transform.position, tailIndex_right.position);
+            float distance_2 = Vector3.Distance(this.transform.position, tailIndex_left.position);
+
+            if (distance_1 < 0.05f || distance_2 < 0.05f)
             {
                 return true;
             }

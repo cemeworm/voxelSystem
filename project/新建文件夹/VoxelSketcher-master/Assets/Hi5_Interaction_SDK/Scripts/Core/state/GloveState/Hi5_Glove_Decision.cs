@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 namespace Hi5_Interaction_Core
@@ -214,7 +214,7 @@ namespace Hi5_Interaction_Core
 		}
 
 
-		/*internal bool IsClap()
+		*//*internal bool IsClap()
 		{
             if (mHand.gameObject.GetComponent<Hi5_Glove_Property>() != null)
             {
@@ -315,8 +315,9 @@ namespace Hi5_Interaction_Core
 				return true;
 			}
 			return false;
-		}*/
+		}*//*
 
 
 	}
 }
+*/

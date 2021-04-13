@@ -21,11 +21,14 @@ namespace Hi5_Interaction_Core
         // Update is called once per frame
         override public void Update(float deltaTime)
         {
-			if (Hand == null || Hand.mState == null || Hand.mState.mJudgeMent == null || mDecision == null)
+			/*if (Hand == null || Hand.mState == null || Hand.mState.mJudgeMent == null || mDecision == null)
+                return;
+*/
+            if (Hand == null || Hand.mState == null || Hand.mState.mJudgeMent == null)
                 return;
 
 
-			if (mDecision.IsPinch ())
+            /*if (mDecision.IsPinch ())
 			{
 				return;
 			}
@@ -36,7 +39,7 @@ namespace Hi5_Interaction_Core
 				if (mDecision.IsFlyPinch ())
 				{
 					return;
-				}
+				}*/
 
 
                 // Debug.Log("start flypinch");
@@ -116,10 +119,10 @@ namespace Hi5_Interaction_Core
 //					}
 //                   
 //                }
-            }
+            //}
 
             //pinch2
-            {
+            //{
 				
 //                List<int> pinchs2;
 //                List<Hi5_Glove_Interaction_Finger> fingers = null;
@@ -187,7 +190,7 @@ namespace Hi5_Interaction_Core
 //	                         return;
 //                       }
 //                  }
-				if (mDecision.IsPinch2 ())
+				/*if (mDecision.IsPinch2 ())
 				{
 					return;
 				}
@@ -197,7 +200,7 @@ namespace Hi5_Interaction_Core
             {
 				
                 if (mState.State == E_Hand_State.ERelease)
-                {
+                {*/
 					/*if (mDecision.IsClap ())
 					{
 						return;
@@ -240,24 +243,24 @@ namespace Hi5_Interaction_Core
 //
 //						return;
 //                    }
-                }
-            }
+/*                }
+            }*/
 
             //lift
-            {
+            //{
 				
                 //if (Hi5_Interaction_Const.TestFlyMoveNoUsedGravity)
-                {
+                /*{
                     if (mState.State == E_Hand_State.ERelease)
                     {
-						/*if (mDecision.IsLift ())
+						*//*if (mDecision.IsLift ())
 						{
                             
 							return;
-						}*/
+						}*//*
                     }
-                }
-            }
+                }*/
+            //}
         }
 
       

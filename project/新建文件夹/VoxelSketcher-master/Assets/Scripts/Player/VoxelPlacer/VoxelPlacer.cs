@@ -12,7 +12,10 @@ public class VoxelPlacer : MonoBehaviour
     // ---- VR模式变量 ----
     public VoxelSelector vselector;
     private Hi5InputController vrcon;
+    public Hi5_Glove_Interaction_Hand HI5_Left_Human_Collider;
+    public Hi5_Glove_Interaction_Hand HI5_Right_Human_Collider;
     Vector3 moveStartLocHand;
+    public ObjectManipulator objectManipulator;
 
     // 当前正在被修改的Object
     public ObjectComponent targetObj;
@@ -30,6 +33,9 @@ public class VoxelPlacer : MonoBehaviour
             color = Color.white
         };
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
+        HI5_Left_Human_Collider = GameObject.Find("HI5_Left_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
+        HI5_Right_Human_Collider = GameObject.Find("HI5_Right_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
+        objectManipulator = GameObject.Find("ObjectManipulator").GetComponent<ObjectManipulator>();
     }
 
     // Update is called once per frame
@@ -106,11 +112,13 @@ public class VoxelPlacer : MonoBehaviour
         else // VR mode
         {
             // 创建新的voxel
-            if (vrcon.createVoxelInput() == 1)
+            if (vrcon.createVoxelInput() == 1 && !objectManipulator.IsCDTrigger())
             {
+                objectManipulator.setCDTrigger(true);
                 // 选中位置的信息存入一个Voxel对象
-                Vector3Int pos = MathHelper.WorldPosToWorldIntPos(vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint());
-                Debug.Log(pos);
+                Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position);
+                Debug.Log("voxelcreate_finger:"+pos);
+                Debug.Log("gridBasePoint:" + this.targetObj.gridBasePoint);
                 Voxel v = this.targetObj.voxelObjectData.GetVoxelAt(pos - this.targetObj.gridBasePoint);
                 // 如果此处没有voxel，进一步判断是否与已有voxel相连，如果相连，则处理按键的事件
                 if (v.voxel == null && this.targetObj.IsNearVoxel(pos))
@@ -120,11 +128,12 @@ public class VoxelPlacer : MonoBehaviour
                 }
             }
             // 如果有voxel，则根据按键删除voxel
-            if (vrcon.deleteVoxelInput() == 1) 
+            if (vrcon.deleteVoxelInput() == 1 && !objectManipulator.IsCDTrigger()) 
             {
+                objectManipulator.setCDTrigger(true);
                 Debug.Log("Delete");
                 // 选中位置的信息存入一个Voxel对象
-                Vector3Int pos = MathHelper.WorldPosToWorldIntPos(vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint());
+                Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position);
                 Voxel v = this.targetObj.voxelObjectData.GetVoxelAt(pos - this.targetObj.gridBasePoint);
                 if (v.voxel != null)
                 {

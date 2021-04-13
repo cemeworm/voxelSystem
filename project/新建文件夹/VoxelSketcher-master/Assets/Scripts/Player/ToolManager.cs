@@ -13,7 +13,6 @@ public class ToolManager : Singleton<ToolManager>
     public VoxelPlacer voxelPlacer;
     public FaceStretcher faceStretcher;
     public ObjectManipulator objectManipulator;
-
     private Hi5InputController vrcon;
 
     public enum ToolMode
@@ -43,6 +42,7 @@ public class ToolManager : Singleton<ToolManager>
         Debug.Log("update:toolmanager");
         ToolModeUpdate();
         InteractionModeUpdate();
+        
     }
 
     private void ToolModeUpdate()
@@ -103,8 +103,8 @@ public class ToolManager : Singleton<ToolManager>
                 objectManipulator.gameObject.SetActive(true);
 
                 voxelPlacer.gameObject.SetActive(false);
-                faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(false);
-                faceStretcher.gameObject.SetActive(false);
+                //faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(false);
+                //faceStretcher.gameObject.SetActive(false);
                 break;
             case ToolMode.PlaceVoxel:
                 voxelPlacer.gameObject.SetActive(true);
@@ -144,11 +144,14 @@ public class ToolManager : Singleton<ToolManager>
 
     static public void highlightObject(GameObject obj, Color c, float width)
     {
-        var outline = obj.AddComponent<Outline>();
+        if (obj.GetComponent<Outline>() is null)
+        {
+            var outline = obj.AddComponent<Outline>();
 
-        outline.OutlineMode = Outline.Mode.OutlineAll;
-        outline.OutlineColor = c;
-        outline.OutlineWidth = width;
+            outline.OutlineMode = Outline.Mode.OutlineAll;
+            outline.OutlineColor = c;
+            outline.OutlineWidth = width;
+        }
     }
 
     static public void unHighlightObject(GameObject obj)

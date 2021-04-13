@@ -11,19 +11,26 @@ namespace Hi5_Interaction_Core
             get { return mHand; }
         }
 
-        internal protected void Init(Hi5_Glove_Interaction_Hand hand, 
+/*        internal protected void Init(Hi5_Glove_Interaction_Hand hand, 
 									Hi5_Glove_Interaction_State state,
 									Hi5_Glove_Decision decision)
         {
             Hand = hand;
             mState = state;
 			mDecision = decision;
+        }*/
+
+        internal protected void Init(Hi5_Glove_Interaction_Hand hand,
+                            Hi5_Glove_Interaction_State state)
+        {
+            Hand = hand;
+            mState = state;
         }
 
         private Hi5_Glove_Interaction_Hand mHand = null;
         internal protected Hi5_Glove_Interaction_State mState = null;
-		internal protected Hi5_Glove_Decision mDecision = null;
-        public abstract void Start();
+/*		internal protected Hi5_Glove_Decision mDecision = null;
+*/        public abstract void Start();
         public abstract void Update(float deltaTime);
 
         public abstract void End();

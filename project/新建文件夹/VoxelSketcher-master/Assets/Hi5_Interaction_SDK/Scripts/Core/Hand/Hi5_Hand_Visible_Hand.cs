@@ -78,13 +78,13 @@ namespace Hi5_Interaction_Core
 				return -1000;
 		}
 
-		internal int LiftObjectId()
+/*		internal int LiftObjectId()
 		{
 			if (mGlove_Hand != null)
 				return mGlove_Hand.gameObject.GetComponent<Hi5_Glove_Interaction_Hand> ().LiftObjectId ();
 			else
 				return -1000;
-		}
+		}*/
 
         private void AssignPNJoints()
         {

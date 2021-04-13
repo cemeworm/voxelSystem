@@ -12,8 +12,8 @@ namespace Hi5_Interaction_Core
         internal Hi5_Object_JudgeMent mJudgeMent = null;
         Dictionary<E_Hand_State, Hi5_Glove_State_Base> mDicState = new Dictionary<E_Hand_State, Hi5_Glove_State_Base>();
         Hi5_Glove_State_Base mCurrentState = null;
-		Hi5_Glove_Decision mDecision = null;
-
+/*		Hi5_Glove_Decision mDecision = null;
+*/
         private E_Hand_State mState = E_Hand_State.ERelease;
         /// <summary>
         /// get hand gesture state
@@ -63,7 +63,7 @@ namespace Hi5_Interaction_Core
                 return null;
         }
 
-        internal Hi5_Glove_State_Lift GetLift()
+        /*internal Hi5_Glove_State_Lift GetLift()
         {
             if (mDicState.ContainsKey(E_Hand_State.ELift))
             {
@@ -72,15 +72,15 @@ namespace Hi5_Interaction_Core
             }
             else
                 return null;
-        }
+        }*/
 
         protected void init(Hi5_Glove_Interaction_Hand hand)
         {
 			mJudgeMent = new Hi5_Object_JudgeMent();
-            mDecision = new Hi5_Glove_Decision (mJudgeMent,hand,this);
-            Hi5_Glove_State_Pinch pinchState = new Hi5_Glove_State_Pinch();
+/*            mDecision = new Hi5_Glove_Decision (mJudgeMent,hand,this);
+*/            Hi5_Glove_State_Pinch pinchState = new Hi5_Glove_State_Pinch();
            
-			pinchState.Init(hand,this, mDecision);
+			/*pinchState.Init(hand,this, mDecision);
             Hi5_Glove_State_Release releaseState = new Hi5_Glove_State_Release();
 			releaseState.Init(hand,this, mDecision);
             Hi5_Glove_State_Pinch2 pinch2 = new Hi5_Glove_State_Pinch2();
@@ -89,13 +89,13 @@ namespace Hi5_Interaction_Core
 			clap.Init(hand, this, mDecision);
             
             Hi5_Glove_State_Lift Lift = new Hi5_Glove_State_Lift();
-			Lift.Init(hand, this, mDecision);
-			mDicState.Add(E_Hand_State.EClap, clap);
+			Lift.Init(hand, this, mDecision);*/
+/*			mDicState.Add(E_Hand_State.EClap, clap);
 			mDicState.Add(E_Hand_State.ELift, Lift);
             mDicState.Add(E_Hand_State.EPinch,pinchState);
             mDicState.Add(E_Hand_State.ERelease,releaseState);
             mDicState.Add(E_Hand_State.EPinch2, pinch2);
-            mCurrentState = releaseState;
+            mCurrentState = releaseState;*/
            
             mJudgeMent.mStateManager = this;
             mJudgeMent.Hand = hand;

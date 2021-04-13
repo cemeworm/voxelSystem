@@ -24,7 +24,7 @@ namespace Hi5_Interaction_Core
 		void Update()
 		{
 
-            Dictionary<int, Hi5_Glove_Interaction_Item> dic=  Hi5_Interaction_Object_Manager.GetObjectManager().GetItems();
+            /*Dictionary<int, Hi5_Glove_Interaction_Item> dic=  Hi5_Interaction_Object_Manager.GetObjectManager().GetItems();
             bool temp = false;
             foreach(KeyValuePair<int, Hi5_Glove_Interaction_Item> item in dic)
             {
@@ -46,7 +46,7 @@ namespace Hi5_Interaction_Core
                 }
             }
             if(!temp)
-                IsOpenCollider = true;
+                IsOpenCollider = true;*/
             //if (Hi5_Layer_Set.IsResetLayer  && !isSetLayer) 
             //{
 

@@ -8,7 +8,7 @@ namespace Hi5_Interaction_Core
 
     public class Hi5InputController : MonoBehaviour
     {
-        
+
         private Hi5_Object_JudgeMent hi5_object_judgeMent_1;
         private Hi5_Object_JudgeMent hi5_object_judgeMent_2;
         public Hi5_Switch_Mode_Button hi5_switch_mode_button;
@@ -28,289 +28,281 @@ namespace Hi5_Interaction_Core
         public Hi5ButtonRect ButtonNot;
         public WorldOptions worldOptions;
         public MergeOptions mergeOptions;
-
-
-
+        public ObjectManipulator objectManipulator;
 
         public int selectObjectInput()
         {
-            int state;
-            if (hi5_object_judgeMent_2.IsHandIndexPoint())
-            {
-                Debug.Log("selectObjectInput");
-                state = 1;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                {
+                    Debug.Log("selectObjectInput");
+                    state = 1;
+                }
 
-            else
-            {
-                state = 0;
-            }
-
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int createObjectInput()
         {
-            int state;
-            if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsHandFist())
-            {
-                Debug.Log("creatingObjectInput");
-                state = 2;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsHandFist())
+                {
+                    Debug.Log("creatingObjectInput");
+                    state = 2;
+                }
 
-            else if (hi5_object_judgeMent_2.IsHandFist())
-            {
-                Debug.Log("createObjectInput");
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
-
+                else if (hi5_object_judgeMent_2.IsHandFist())
+                {
+                    Debug.Log("createObjectInput");
+                    state = 1;
+                }
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int deleteObjectInput()
         {
-            int state;
-            if (hi5_object_judgeMent_1.IsFingerPlane()&& hi5_object_judgeMent_2.IsFingerPlane())
-            {
-                state = 1;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsFingerPlane() && hi5_object_judgeMent_2.IsFingerPlane())
+                {
+                    state = 1;
+                }
 
-            else
-            {
-                state = 0;
-            }
-
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
+
         public int copyObjectInput()
         {
-            int state;
-            if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandFist())
-            {
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
-
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandFist())
+                {
+                    state = 1;
+                }
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int moveObjectInput()
         {
-            int state;
-            if (hi5_object_judgeMent_1.IsHandFist()&& hi5_object_judgeMent_2.IsHandIndexPoint())
-            {
-                Debug.Log("movingObjectInput");
-                state = 2;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsFingerPlane())
+                {
+                    Debug.Log("movingObjectInput");
+                    state = 2;
+                }
 
-            else if (hi5_object_judgeMent_1.IsHandFist())
-            {
-                Debug.Log("moveObjectInput");
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
-
+                else if (hi5_object_judgeMent_1.IsHandFist())
+                {
+                    Debug.Log("moveObjectInput");
+                    state = 1;
+                }
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         /*public int rotateObjectInput()
         {
-            int state;
-            if (hi5_object_judgeMent.IsHandFist() && RecordGesState == "Fist")
-            {
-                state = 2;
-            }
+        int state;
+        if (hi5_object_judgeMent.IsHandFist() && RecordGesState == "Fist")
+        {
+        state = 2;
+        }
 
-            else if (hi5_object_judgeMent.IsHandFist())
-            {
-                state = 1;
-                RecordGesState = "Fist";
-            }
-            else
-            {
-                state = 0;
-                RecordGesState = "None";
-            }
+        else if (hi5_object_judgeMent.IsHandFist())
+        {
+        state = 1;
+        RecordGesState = "Fist";
+        }
+        else
+        {
+        state = 0;
+        RecordGesState = "None";
+        }
 
-            return state;
+        return state;
         }*/
 
         public int combineObjectInput()
         {
-            int state;
-            if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsOK())
-            {
-                Debug.Log("combineObjectInput");
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsOK())
+                {
+                    Debug.Log("combineObjectInput");
+                    state = 1;
+                }
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int createVoxelInput()
         {
-            int state;
-            if (hi5_object_judgeMent_2.IsHandFist())
-            {
-                Debug.Log("createVoxelInput");
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
-
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                {
+                    Debug.Log("createVoxelInput");
+                    state = 1;
+                }
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int deleteVoxelInput()
         {
-            int state;
-            if (hi5_object_judgeMent_1.IsFingerPlane()&& hi5_object_judgeMent_2.IsFingerPlane())
-            {
-                Debug.Log("deleteVoxelInput");
-                state = 1;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsFingerPlane() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                {
+                    Debug.Log("deleteVoxelInput");
+                    state = 1;
+                }
 
-            else
-            {
-                state = 0;
-            }
-
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int selectVoxelInput()
         {
-            int state;
-            if (hi5_object_judgeMent_2.IsHandIndexPoint())
-            {
-                Debug.Log("selectVoxelInput");
-                state = 1;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                {
+                    Debug.Log("selectVoxelInput");
+                    state = 1;
+                }
 
-            else
-            {
-                state = 0;
-            }
-
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int selectFaceInput()
         {
-            int state;
-            if (hi5_object_judgeMent_1.IsHandFist()&&hi5_object_judgeMent_2.IsHandIndexPoint())
-            {
-                Debug.Log("selectFacecInput");
-                state = 2;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                {
+                    Debug.Log("selectFacecInput");
+                    state = 2;
+                }
 
-            else if(hi5_object_judgeMent_2.IsHandIndexPoint())
-            {
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
-
+                else if (hi5_object_judgeMent_2.IsHandIndexPoint())
+                {
+                    state = 1;
+                }
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int pullFaceInput()
         {
-            int state;
-            if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsHandFist())
-            {
-                Debug.Log("pullFaceInput");
-                state = 2;
-            }
+            int state = 0;
+                if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsFingerPlane())
+                {
+                    Debug.Log("pullFaceInput");
+                    state = 2;
+                }
 
-            else if (hi5_object_judgeMent_2.IsHandFist())
-            {
-                Debug.Log("pullFaceInput");
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
-
+                else if (hi5_object_judgeMent_2.IsHandFist())
+                {
+                    Debug.Log("pullFaceInput");
+                    state = 1;
+                }
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int switchModeInput()
         {
-            int state;
-            if (Switch_Mode_Button.IsTouch())
-            {
-                Debug.Log("switchModeInput");
-                state = 1;
-            }
+            int state = 0;
 
-            else
-            {
-                state = 0;
-            }
+                if (Switch_Mode_Button.IsTouch())
+                {
+                    Debug.Log("switchModeInput");
+                    state = 1;
+                }
 
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int worldMenuInput()
         {
             int state;
-            if (World_Menu_Button.IsTouch())
-            {
-                Debug.Log("worldMenuInput");
-                state = 1;
-            }
+                if (World_Menu_Button.IsTouch())
+                {
+                    Debug.Log("worldMenuInput");
+                    state = 1;
+                }
 
-            else
-            {
-                state = 0;
-            }
-
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
         public int teleportInput()
         {
             int state;
-            if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
-            {
-                state = 2;
-            }
 
-            else if (hi5_object_judgeMent_1.IsHandIndexPoint())
-            {
-                state = 1;
-            }
-            else
-            {
-                state = 0;
-            }
+                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                {
+                    state = 2;
+                }
 
+                else if (hi5_object_judgeMent_1.IsHandIndexPoint())
+                {
+                    state = 1;
+                }
+                else
+                {
+                    state = 0;
+                }
             return state;
         }
 
 
         // Start is called before the first frame update
-         private void Awake()
+        private void Awake()
+        {
+        }
+
+        private void Start()
         {
             hi5_object_judgeMent_1 = new Hi5_Object_JudgeMent();
             hi5_object_judgeMent_2 = new Hi5_Object_JudgeMent();
@@ -333,11 +325,7 @@ namespace Hi5_Interaction_Core
             ButtonNot = GameObject.Find("ButtonNot").GetComponent<Hi5ButtonRect>();
             mergeOptions = GameObject.Find("MergeMenu").GetComponent<MergeOptions>();
             worldOptions = GameObject.Find("WorldMenu").GetComponent<WorldOptions>();
-        }
-
-        private void Start()
-        {
-
+            objectManipulator = GameObject.Find("ObjectManipulator").GetComponent<ObjectManipulator>();
         }
 
         // Update is called once per frame
@@ -351,29 +339,28 @@ namespace Hi5_Interaction_Core
             if (worldOptions.gameObject.activeSelf)
             {
                 Debug.Log("worldOptions.gameObject.activeSelf");
-                ButtonCreate.setButtonPosition(0.1f);
+                ButtonCreate.setButtonPosition(0.2f);
                 /*Debug.Log("button  "+"x:" + ButtonCreate.buttonPosition.x + " y:" + ButtonCreate.buttonPosition.y + " z:" + ButtonCreate.buttonPosition.y);
-                Debug.Log("finger  "+"x:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.x + " y:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.y + " z:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.z);
-*/
-                if (ButtonCreate.IsTouch())
+                    Debug.Log("finger  "+"x:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.x + " y:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.y + " z:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.z);*/
+                if (ButtonCreate.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint())
                 {
                     worldOptions.OnPressForCreate();
                 }
-                Debug.Log(ButtonCreate.buttonPosition);
-                ButtonSwitch.setButtonPosition(0.0f);
-                if (ButtonSwitch.IsTouch())
+                ButtonSwitch.setButtonPosition(0.1f);
+                Debug.Log(ButtonSwitch.buttonPosition);
+                if (ButtonSwitch.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint())
                 {
                     worldOptions.OnPressForSwitch();
                 }
-                Debug.Log(ButtonCreate.buttonPosition);
-                ButtonSave.setButtonPosition(-0.1f);
-                if (ButtonSave.IsTouch())
+                ButtonSave.setButtonPosition(0.0f);
+                Debug.Log(ButtonSave.buttonPosition);
+                if (ButtonSave.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint())
                 {
                     worldOptions.OnPressForSave();
                 }
-                Debug.Log(ButtonCreate.buttonPosition);
-                ButtonLoad.setButtonPosition(-0.2f);
-                if (ButtonLoad.IsTouch())
+                ButtonLoad.setButtonPosition(-0.1f);
+                Debug.Log(ButtonLoad.buttonPosition);
+                if (ButtonLoad.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint())
                 {
                     worldOptions.OnPressForLoad();
                 }
@@ -382,17 +369,17 @@ namespace Hi5_Interaction_Core
             {
                 Debug.Log("mergeOptions.gameObject.activeSelf");
                 ButtonAnd.setButtonPosition(0.1f);
-                if (ButtonAnd.IsTouch())
+                if (ButtonAnd.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint())
                 {
                     mergeOptions.OnPressForAdd();
                 }
                 ButtonOr.setButtonPosition(0.0f);
-                if (ButtonOr.IsTouch())
+                if (ButtonOr.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint())
                 {
                     mergeOptions.OnPressForOr();
                 }
                 ButtonNot.setButtonPosition(-0.1f);
-                if (ButtonNot.IsTouch())
+                if (ButtonNot.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint())
                 {
                     mergeOptions.OnPressForNot();
                 }

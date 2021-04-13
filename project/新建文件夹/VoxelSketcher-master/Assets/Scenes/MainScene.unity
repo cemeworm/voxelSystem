@@ -168,6 +168,8 @@ MonoBehaviour:
   hitPointReader: {fileID: 0}
   objectSelector: {fileID: 258945833}
   vselector: {fileID: 679206608}
+  HI5_Left_Human_Collider: {fileID: 0}
+  HI5_Right_Human_Collider: {fileID: 0}
   targetObj: {fileID: 0}
   voxelArg:
     voxel: {fileID: 0}
@@ -644,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 2
+  index: 3
   origin: {fileID: 780902040}
 --- !u!135 &102987438
 SphereCollider:
@@ -917,7 +919,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 132320985}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 992825539}
@@ -1332,7 +1334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
-  HMDTransform: {fileID: 0}
+  HMDTransform: {fileID: 1993439531}
 --- !u!114 &194633175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1348,7 +1350,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
-  m_Maskable: 1
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -2697,7 +2699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
-  HMDTransform: {fileID: 0}
+  HMDTransform: {fileID: 1993439531}
 --- !u!114 &417186472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2712,8 +2714,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
+  m_RaycastTarget: 0
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -3923,8 +3925,8 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 666952827}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0.6}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1222437557}
@@ -5034,7 +5036,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
-  HMDTransform: {fileID: 0}
+  HMDTransform: {fileID: 1993439531}
 --- !u!114 &802500796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5049,8 +5051,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
+  m_RaycastTarget: 0
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -5810,13 +5812,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
+  m_RaycastTarget: 0
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 0}
-  m_Type: 0
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -5839,7 +5841,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
-  HMDTransform: {fileID: 0}
+  HMDTransform: {fileID: 1993439531}
 --- !u!222 &992825537
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6907,7 +6909,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
-  HMDTransform: {fileID: 0}
+  HMDTransform: {fileID: 1993439531}
 --- !u!114 &1222437559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6922,8 +6924,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
+  m_RaycastTarget: 0
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -7679,7 +7681,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
-  HMDTransform: {fileID: 0}
+  HMDTransform: {fileID: 1993439531}
 --- !u!114 &1341789086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7694,8 +7696,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
+  m_RaycastTarget: 0
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10181,7 +10183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 1
+  index: 4
   origin: {fileID: 148529297}
 --- !u!135 &1993439528
 SphereCollider:
@@ -10311,7 +10313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
-  HMDTransform: {fileID: 0}
+  HMDTransform: {fileID: 1993439531}
 --- !u!114 &2006879577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10326,8 +10328,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_Maskable: 1
+  m_RaycastTarget: 0
+  m_Maskable: 0
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []

@@ -57,7 +57,7 @@ namespace Hi5_Interaction_Core
 				return -1000;
 		}
 
-		internal int LiftObjectId()
+/*		internal int LiftObjectId()
 		{
 			if (mState == null)
 				return -1000;
@@ -66,7 +66,7 @@ namespace Hi5_Interaction_Core
 			}
 			else
 				return -1000;
-		}
+		}*/
 		virtual protected void OnEnable()
 		{
 			//Hi5_Interaction_Message.GetInstance().RegisterMessage(PichOtherHandRelease, Hi5_MessageKey.messageLiftObject);
