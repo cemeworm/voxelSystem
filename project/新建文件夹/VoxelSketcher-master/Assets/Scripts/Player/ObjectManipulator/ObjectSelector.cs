@@ -11,8 +11,6 @@ public class ObjectSelector : MonoBehaviour
     private Hi5InputController vrcon;
     public Hi5_Glove_Interaction_Hand HI5_Left_Human_Collider;
     public Hi5_Glove_Interaction_Hand HI5_Right_Human_Collider;
-    public ObjectManipulator objectManipulator;
-
 
     private void Awake()
     {
@@ -24,7 +22,6 @@ public class ObjectSelector : MonoBehaviour
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
         HI5_Left_Human_Collider = GameObject.Find("HI5_Left_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
         HI5_Right_Human_Collider = GameObject.Find("HI5_Right_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
-        objectManipulator = GameObject.Find("ObjectManipulator").GetComponent<ObjectManipulator>();
         //selectedObjects.Add(WorldDataManager.Instance.ActiveWorld.GetVoxelObject(0));
     }
 
@@ -86,10 +83,10 @@ public class ObjectSelector : MonoBehaviour
         }
         else // VR mode
         {
-            if (vrcon.selectObjectInput() == 1 && !objectManipulator.IsCDTrigger())
+            if (vrcon.selectObjectInput() == 1 && !ToolManager.IsCDTrigger())
             {
                 // 选中Object
-                objectManipulator.setCDTrigger(true);
+                ToolManager.setCDTrigger(true);
                 ObjectComponent[] os = WorldDataManager.Instance.ActiveWorld.GetVoxelObjectsAt(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position);
                 if (os.Length > 0)
                 {

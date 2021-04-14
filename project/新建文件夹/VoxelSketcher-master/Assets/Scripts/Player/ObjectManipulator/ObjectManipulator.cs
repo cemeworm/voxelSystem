@@ -16,8 +16,6 @@ public class ObjectManipulator : MonoBehaviour
     public MergeOptions mOptions;
     public WorldOptions wOptions;
     public List<Vector3Int> creatingObjectBuffer;
-    internal float cd;
-    internal bool isCDTrigger;
 
     // 移动物体
     private Vector3 moveStartLocHand;
@@ -26,40 +24,14 @@ public class ObjectManipulator : MonoBehaviour
     private void Start()
     {
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
-        isCDTrigger = false;
-        cd = 1.0f;
+
     }
 
     private void Update()
     {
-        if (IsCDTrigger())
-        {
-            cd -= 0.1f;
-            if (cd <= 0.1)
-            {
-                cd = 1.0f;
-                setCDTrigger(false);
-            }
-        }
-        Debug.Log(IsCDTrigger());
-        Debug.Log(cd);
         Debug.Log("update:manipulator");
         ProcessInput(ToolManager.Instance.Imode);
         vrcon.WorldChange();
-    }
-
-    internal bool IsCDTrigger()
-    {
-        if (isCDTrigger)
-        {
-            return true;
-        }
-        else return false;
-    }
-
-    internal void setCDTrigger(bool state)
-    {
-        isCDTrigger = state;
     }
 
     private void ProcessInput(ToolManager.InteractionMode mode)
@@ -100,36 +72,37 @@ public class ObjectManipulator : MonoBehaviour
             if (this.objectSelector.selectedObjects.Count > 0)
             {
                 // 按下正面按钮，启动物体移动
-                if (vrcon.moveObjectInput() == 1 && !IsCDTrigger())
+                if (vrcon.moveObjectInput() == 1 && !ToolManager.IsCDTrigger())
                 {
-                    setCDTrigger(true);
+                    ToolManager.setCDTrigger(true);
                     moveStartLocHand = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
                     moveStartLocObj = this.objectSelector.GetSelectedObject().gridBasePoint;
                 }
                 
-                if ((vrcon.moveObjectInput() == 2 && !IsCDTrigger()) || (vrcon.copyObjectInput() == 2 && !IsCDTrigger())) // 保持按住正面按钮，移动物体
+                if ((vrcon.moveObjectInput() == 2 && !ToolManager.IsCDTrigger()) || (vrcon.copyObjectInput() == 2 && !ToolManager.IsCDTrigger())) // 保持按住正面按钮，移动物体
                 {
-                    setCDTrigger(true);
+                    ToolManager.setCDTrigger(true);
                     MoveObjectByController();
                 }
                 
-                if (vrcon.copyObjectInput() == 1 && !IsCDTrigger()) // 按下扳机键，启动复制
+                if (vrcon.copyObjectInput() == 1 && !ToolManager.IsCDTrigger()) // 按下扳机键，启动复制
                 {
-                    setCDTrigger(true);
+                    ToolManager.setCDTrigger(true);
                     moveStartLocHand = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
                     CopyObject();
                 }
                 
-                if (vrcon.combineObjectInput() == 1 && !IsCDTrigger()) // 启动合并Object
+                if (vrcon.combineObjectInput() == 1 && !ToolManager.IsCDTrigger()) // 启动合并Object
                 {
                     // 根据菜单选择合并模式
-                    setCDTrigger(true);
+                    ToolManager.setCDTrigger(true);
                     mOptions.gameObject.SetActive(true);
+                    Debug.Log("merge_start");
                 }
 
-                if (vrcon.deleteObjectInput() == 1 && !IsCDTrigger()) // 启动删除Object
+                if (vrcon.deleteObjectInput() == 1 && !ToolManager.IsCDTrigger()) // 启动删除Object
                 {
-                    setCDTrigger(true);
+                    ToolManager.setCDTrigger(true);
                     for (int i = objectSelector.selectedObjects.Count - 1; i >= 0;i--)
                     {
                         Debug.Log("Delete" + objectSelector.selectedObjects[i].name);
@@ -141,21 +114,21 @@ public class ObjectManipulator : MonoBehaviour
             else
             {
                 // 启动创建新Object
-                if (vrcon.createObjectInput() == 2 && !IsCDTrigger())
+                if (vrcon.createObjectInput() == 2 && !ToolManager.IsCDTrigger())
                 {
-                    setCDTrigger(true);
+                    ToolManager.setCDTrigger(true);
                     CreatingNewObject();
                 }
-                if (vrcon.createObjectInput() == 1 && !IsCDTrigger())
+                if (vrcon.createObjectInput() == 1 && !ToolManager.IsCDTrigger())
                 {
-                    setCDTrigger(true);
+                    ToolManager.setCDTrigger(true);
                     CreateNewObject();
                 }
             }
-            if (vrcon.worldMenuInput() == 1 && !IsCDTrigger()) // 启动world切换
+            if (vrcon.worldMenuInput() == 1 && !ToolManager.IsCDTrigger()) // 启动world切换
             {
                 // 根据菜单选择操作
-                setCDTrigger(true);
+                ToolManager.setCDTrigger(true);
                 wOptions.gameObject.SetActive(true);
 
             }
@@ -181,10 +154,10 @@ public class ObjectManipulator : MonoBehaviour
     {
         WorldDataManager.Instance.ActiveWorld.CreateNewObjectFromGridData(
             creatingObjectBuffer, new Voxel());
-
+        
         WorldDataManager.Instance.ActiveWorld.ObjectList[WorldDataManager.Instance.ActiveWorld.ObjectList .Count-1].UpdateObjectMesh();
         creatingObjectBuffer.Clear();
-        Debug.Log("new obj has been created");
+        Debug.Log("new obj has been created:"+ WorldDataManager.Instance.ActiveWorld.ObjectList .Count);
     }
 
     private void CopyObject()

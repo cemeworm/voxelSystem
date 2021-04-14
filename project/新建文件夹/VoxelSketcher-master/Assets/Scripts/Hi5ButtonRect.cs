@@ -47,7 +47,7 @@ namespace Hi5_Interaction_Core
             float distance_1 = Vector3.Distance(buttonPosition, tailIndex_right.position);
             float distance_2 = Vector3.Distance(buttonPosition, tailIndex_left.position);
 
-            if (distance_1 < 0.08f || distance_1 < 0.08f)
+            if (distance_1 < 0.06f || distance_1 < 0.06f)
             {
                 ChangeColor();
                 return true;

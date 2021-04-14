@@ -13,7 +13,12 @@ public class ToolManager : Singleton<ToolManager>
     public VoxelPlacer voxelPlacer;
     public FaceStretcher faceStretcher;
     public ObjectManipulator objectManipulator;
+    //public ObjectSelector objectSelector;
     private Hi5InputController vrcon;
+    public UnityEngine.TextMesh Switch_Mode_Button_Text;
+    static float cd;
+    static bool isCDTrigger;
+    static public int Id;
 
     public enum ToolMode
     {
@@ -33,6 +38,14 @@ public class ToolManager : Singleton<ToolManager>
     {
         this.Imode = InteractionMode.VR;
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
+        Switch_Mode_Button_Text = GameObject.Find("Switch_Mode_Button/Switch_Text").GetComponent<TextMesh>();
+        Debug.Log("text:"+Switch_Mode_Button_Text.text);
+        objectManipulator = GameObject.Find("ObjectManipulator").GetComponent<ObjectManipulator>();
+/*        objectSelector = GameObject.Find("ObjectSelector").GetComponent<ObjectSelector>();*/
+
+        isCDTrigger = false;
+        cd = 1.0f;
+        Id = 0;
         ToolModeSwitching();
     }
 
@@ -40,9 +53,33 @@ public class ToolManager : Singleton<ToolManager>
     void Update()
     {
         Debug.Log("update:toolmanager");
+        if (IsCDTrigger())
+        {
+            cd -= 0.1f;
+            if (cd <= 0.1)
+            {
+                cd = 1.0f;
+                setCDTrigger(false);
+            }
+        }
+        Debug.Log(IsCDTrigger());
         ToolModeUpdate();
         InteractionModeUpdate();
         
+    }
+
+    static public bool IsCDTrigger()
+    {
+        if (isCDTrigger)
+        {
+            return true;
+        }
+        else return false;
+    }
+
+    static public void setCDTrigger(bool state)
+    {
+        isCDTrigger = state;
     }
 
     private void ToolModeUpdate()
@@ -73,8 +110,9 @@ public class ToolManager : Singleton<ToolManager>
         }
         else if (Imode == InteractionMode.VR)
         {
-            if (vrcon.switchModeInput() == 1)
-            { 
+            if (vrcon.switchModeInput() == 1 && !IsCDTrigger())
+            {
+                setCDTrigger(true);
                 if (Tmode == ToolMode.ObjectManipulation && objectManipulator.objectSelector.selectedObjects.Count > 0)
                 {
                     Tmode = ToolMode.PlaceVoxel;
@@ -84,6 +122,8 @@ public class ToolManager : Singleton<ToolManager>
                 {
                     Tmode = ToolMode.ObjectManipulation;
                     ToolModeSwitching();
+                    voxelPlacer.targetObj.gameObject.GetComponent<Outline>().enabled = false;
+                    voxelPlacer.targetObj.gameObject.GetComponent<Outline>().enabled = true;
                 }
                 /*else if (Tmode == ToolMode.FaceStretch)
                 {
@@ -101,7 +141,7 @@ public class ToolManager : Singleton<ToolManager>
         {
             case ToolMode.ObjectManipulation:
                 objectManipulator.gameObject.SetActive(true);
-
+                Switch_Mode_Button_Text.text = "object";
                 voxelPlacer.gameObject.SetActive(false);
                 //faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(false);
                 //faceStretcher.gameObject.SetActive(false);
@@ -109,7 +149,7 @@ public class ToolManager : Singleton<ToolManager>
             case ToolMode.PlaceVoxel:
                 voxelPlacer.gameObject.SetActive(true);
                 voxelPlacer.SetTargetObj();
-
+                Switch_Mode_Button_Text.text = "voxel";
                 objectManipulator.gameObject.SetActive(false);
                 faceStretcher.gameObject.SetActive(false);
                 break;
@@ -144,14 +184,11 @@ public class ToolManager : Singleton<ToolManager>
 
     static public void highlightObject(GameObject obj, Color c, float width)
     {
-        if (obj.GetComponent<Outline>() is null)
-        {
             var outline = obj.AddComponent<Outline>();
 
             outline.OutlineMode = Outline.Mode.OutlineAll;
             outline.OutlineColor = c;
             outline.OutlineWidth = width;
-        }
     }
 
     static public void unHighlightObject(GameObject obj)

@@ -23,6 +23,7 @@ public class WorldOptions : MonoBehaviour
         Debug.Log("OnPressForCreate! "+this.worldCounter);
 
         // 切换到新world中去
+
         WorldDataManager.Instance.NextWorld();
 
         this.gameObject.SetActive(false);

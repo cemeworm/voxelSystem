@@ -5,6 +5,7 @@ using UnityEngine;
 public class WorldDataManager : Singleton<WorldDataManager>
 {
     private List<WorldData> m_availableWorlds;
+    private int objectCount;
 
     public WorldData ActiveWorld { get; private set; }
 
@@ -13,6 +14,8 @@ public class WorldDataManager : Singleton<WorldDataManager>
         base.Awake();
         m_availableWorlds = new List<WorldData>();
     }
+
+
 
     public WorldData CreateNewWorld(string name)
     {
@@ -28,11 +31,12 @@ public class WorldDataManager : Singleton<WorldDataManager>
     {
         if (ActiveWorld != null)
         {
-            for (int i = 0; i < ActiveWorld.ObjectList.Count; i++)
+            for (int i = 0; i < objectCount; i++)
             {
                 ActiveWorld.DeleteObject(i);
                 Debug.Log("DeleteObject! " + i);
             }
+            //ActiveWorld.UpdateAllObjects();
         }
         ActiveWorld = m_availableWorlds.Find(x => x.name == name);
     }
@@ -50,6 +54,7 @@ public class WorldDataManager : Singleton<WorldDataManager>
             string name = counter.ToString();
             Debug.Log("m_availableWorlds.Count! " + m_availableWorlds.Count);
             Debug.Log("name! "+ name);
+            objectCount = ActiveWorld.ObjectList.Count;
             ActivateWorld(name);
         }
         

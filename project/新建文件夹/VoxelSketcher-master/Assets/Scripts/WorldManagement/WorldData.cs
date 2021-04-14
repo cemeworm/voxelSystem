@@ -151,6 +151,7 @@ public class WorldData
         {
             v.voxel = VoxelInfoLibrary.GetVoxel("Stone");
             v.color = Color.white;
+            v.VoxelId = ToolManager.Id;
         }
         var c = GameObject.Instantiate(
            Resources.Load<GameObject>("Prefabs/VoxelObject"),
@@ -164,6 +165,8 @@ public class WorldData
         c.voxelObjectData.isStatic = isStatic;
         foreach (var worldPos in GridData)
         {
+            ToolManager.Id++;
+            v.VoxelId = ToolManager.Id;
             SetVoxelAt(c, worldPos, v);
         }
 

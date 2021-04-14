@@ -9,6 +9,7 @@ public struct Voxel : IEquatable<Voxel>
 {
     public VoxelInfo voxel;
     public Color color;
+    public int VoxelId;
 
     public bool Equals(Voxel other)
     {

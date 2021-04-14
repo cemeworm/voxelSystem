@@ -43,8 +43,9 @@ public class FaceStretcher : MonoBehaviour
         }
         else
         {
-            if (vrcon.pullFaceInput() == 1 && faceSelector.normal != null)
+            if (vrcon.pullFaceInput() == 1 && faceSelector.normal != null && !ToolManager.IsCDTrigger())
             {
+                ToolManager.setCDTrigger(true);
                 ApplyStretching();
             }
         }
@@ -85,14 +86,16 @@ public class FaceStretcher : MonoBehaviour
         }
         else // VR mode
         {
-            if (vrcon.pullFaceInput() == 1)
+            if (vrcon.pullFaceInput() == 1 && !ToolManager.IsCDTrigger())
             {
+                ToolManager.setCDTrigger(true);
                 m_upCursorPoint = null;
                 m_downCursorPoint = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
                 Debug.Log("vrcon.pullFaceInput.stateDown");
             }
-            if (vrcon.pullFaceInput() == 2)
+            if (vrcon.pullFaceInput() == 2 && !ToolManager.IsCDTrigger())
             {
+                ToolManager.setCDTrigger(true);
                 if (m_downCursorPoint != null && selectionIndicator.data.Count > 0 && faceSelector.normal != null)
                 {
                     var normal = new Vector3Int(
