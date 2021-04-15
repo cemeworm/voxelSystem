@@ -36,6 +36,13 @@ namespace Hi5_Interaction_Core
                 mHand.mVisibleHand.ChangeColor(Color.black);
             }
 
+            else if (IsFly())
+            {
+                mRecord.RecordGesture(Hi5_Glove_Gesture_Recognition_State.EFly);
+                mState = Hi5_Glove_Gesture_Recognition_State.EFly;
+                mHand.mVisibleHand.ChangeColor(Color.blue);
+            }
+
             else if (IsHandPlane())
             {
                 mRecord.RecordGesture(Hi5_Glove_Gesture_Recognition_State.EHandPlane);
@@ -135,7 +142,17 @@ namespace Hi5_Interaction_Core
             else
                 return false;
         }
-        
+
+        internal bool IsFly()
+        {
+            if (mHand != null && mHand.mState != null && mHand.mState.mJudgeMent != null)
+            {
+                return mHand.mState.mJudgeMent.IsFly();
+            }
+            else
+                return false;
+        }
+
         internal bool IsRecordFlyPinch()
 		{
 			return mRecord.IsHaveGesture (Hi5_Glove_Gesture_Recognition_State.EOk);
@@ -158,7 +175,8 @@ namespace Hi5_Interaction_Core
 		EOk,
 		EFist,
         EIndexPoint,
-		EHandPlane
+		EHandPlane,
+        EFly
 	}
 
 	public class Hi5_Glove_Gesture_Recognition_Record

@@ -29,56 +29,103 @@ namespace Hi5_Interaction_Core
         public WorldOptions worldOptions;
         public MergeOptions mergeOptions;
         public ObjectManipulator objectManipulator;
+        public int nowAcitonIndex = 0;
+        public int lastAcitonIndex = 0;
+        public int selectObjectInput_stateMonitor = 0;
+        public int createObjectInput_stateMonitor = 0;
+        public int deleteObjectInput_stateMonitor = 0;
+        public int copyObjectInput_stateMonitor = 0;
+        public int moveObjectInput_stateMonitor = 0;
+        public int combineObjectInput_stateMonitor = 0;
+        public int createVoxelInput_stateMonitor = 0;
+        public int deleteVoxelInput_stateMonitor = 0;
+        public int selectVoxelInput_stateMonitor = 0;
+        public int switchModeInput_stateMonitor = 0;
+        public int worldMenuInput_stateMonitor = 0;
+        public int teleportInput_stateMonitor = 0;
+
+
 
         public int selectObjectInput()
         {
             int state = 0;
-                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+            if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+            {
+                nowAcitonIndex = 1;
+                if (nowAcitonIndex != lastAcitonIndex && selectObjectInput_stateMonitor == 0)
                 {
-                    Debug.Log("selectObjectInput");
+                    selectObjectInput_stateMonitor = 1;
                     state = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && selectObjectInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
                 }
+            }
+            else if (state == 0 && selectObjectInput_stateMonitor == 1)
+            {
+                selectObjectInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
         public int createObjectInput()
         {
             int state = 0;
-                if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsHandFist())
+            if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsHandFist())
+            {
+                nowAcitonIndex = 2;
+                if (nowAcitonIndex != lastAcitonIndex && createObjectInput_stateMonitor == 0)
                 {
-                    Debug.Log("creatingObjectInput");
-                    state = 2;
-                }
-
-                else if (hi5_object_judgeMent_2.IsHandFist())
-                {
-                    Debug.Log("createObjectInput");
+                    createObjectInput_stateMonitor = 1;
                     state = 1;
+                    lastAcitonIndex = nowAcitonIndex;
+
+
                 }
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && createObjectInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
+
+
                 }
+            }
+            if (state == 0 && createObjectInput_stateMonitor == 1)
+            {
+                createObjectInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+
+            }
             return state;
         }
 
         public int deleteObjectInput()
         {
             int state = 0;
-                if (hi5_object_judgeMent_1.IsFingerPlane() && hi5_object_judgeMent_2.IsFingerPlane())
+            if (hi5_object_judgeMent_1.IsFingerPlane() && hi5_object_judgeMent_2.IsFingerPlane())
+            {
+                nowAcitonIndex = 3;
+                if (nowAcitonIndex != lastAcitonIndex && deleteObjectInput_stateMonitor == 0)
                 {
                     state = 1;
+                    deleteObjectInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && deleteObjectInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
                 }
+            }
+            else if (state == 0 && deleteObjectInput_stateMonitor == 1)
+            {
+                deleteObjectInput_stateMonitor = 0;
+                state = 3;
+                lastAcitonIndex = 0;
+            }
             return state;
         }
 
@@ -87,13 +134,25 @@ namespace Hi5_Interaction_Core
         {
             int state = 0;
                 if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandFist())
+            {
+                nowAcitonIndex = 4;
+                if (nowAcitonIndex != lastAcitonIndex && copyObjectInput_stateMonitor == 0)
                 {
                     state = 1;
+                    copyObjectInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && copyObjectInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
                 }
+            }
+            else if (state == 0 && copyObjectInput_stateMonitor == 1)
+            {
+                copyObjectInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
@@ -101,20 +160,25 @@ namespace Hi5_Interaction_Core
         {
             int state = 0;
                 if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsFingerPlane())
+            {
+                nowAcitonIndex = 5;
+                if (nowAcitonIndex != lastAcitonIndex && moveObjectInput_stateMonitor == 0)
                 {
-                    Debug.Log("movingObjectInput");
+                    state = 1;
+                    moveObjectInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
+                }
+                else if (nowAcitonIndex == lastAcitonIndex && moveObjectInput_stateMonitor == 1)
+                {
                     state = 2;
                 }
-
-                else if (hi5_object_judgeMent_1.IsHandFist())
-                {
-                    Debug.Log("moveObjectInput");
-                    state = 1;
-                }
-                else
-                {
-                    state = 0;
-                }
+            }
+            else if (state == 0 && moveObjectInput_stateMonitor == 1)
+            {
+                moveObjectInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
@@ -144,14 +208,25 @@ namespace Hi5_Interaction_Core
         {
             int state = 0;
                 if (hi5_object_judgeMent_1.IsOK() && hi5_object_judgeMent_2.IsOK())
+            {
+                nowAcitonIndex = 6;
+                if (nowAcitonIndex != lastAcitonIndex && combineObjectInput_stateMonitor == 0)
                 {
-                    Debug.Log("combineObjectInput");
                     state = 1;
+                    combineObjectInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && combineObjectInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
                 }
+            }
+            else if (state == 0 && combineObjectInput_stateMonitor == 1)
+            {
+                combineObjectInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
@@ -159,14 +234,25 @@ namespace Hi5_Interaction_Core
         {
             int state = 0;
                 if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsHandIndexPoint())
+            {
+                nowAcitonIndex = 7;
+                if (nowAcitonIndex != lastAcitonIndex && createVoxelInput_stateMonitor == 0)
                 {
-                    Debug.Log("createVoxelInput");
                     state = 1;
+                    createVoxelInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && createVoxelInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
                 }
+            }
+            else if (state == 0 && createVoxelInput_stateMonitor == 1)
+            {
+                createVoxelInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
@@ -174,15 +260,25 @@ namespace Hi5_Interaction_Core
         {
             int state = 0;
                 if (hi5_object_judgeMent_1.IsFingerPlane() && hi5_object_judgeMent_2.IsHandIndexPoint())
+            {
+                nowAcitonIndex = 8;
+                if (nowAcitonIndex != lastAcitonIndex && deleteVoxelInput_stateMonitor == 0)
                 {
-                    Debug.Log("deleteVoxelInput");
                     state = 1;
+                    deleteVoxelInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && deleteVoxelInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
                 }
+            }
+            else if (state == 0 && deleteVoxelInput_stateMonitor == 1)
+            {
+                deleteVoxelInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
@@ -190,15 +286,25 @@ namespace Hi5_Interaction_Core
         {
             int state = 0;
                 if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+            {
+                nowAcitonIndex = 9;
+                if (nowAcitonIndex != lastAcitonIndex && selectVoxelInput_stateMonitor == 0)
                 {
-                    Debug.Log("selectVoxelInput");
                     state = 1;
+                    selectVoxelInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && selectVoxelInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
                 }
+            }
+            else if (state == 0 && selectVoxelInput_stateMonitor == 1)
+            {
+                selectVoxelInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
@@ -247,52 +353,79 @@ namespace Hi5_Interaction_Core
         {
             int state = 0;
 
-                if (Switch_Mode_Button.IsTouch())
+            if (Switch_Mode_Button.IsTouch())
+                 {
+                nowAcitonIndex = 10;
+                if (nowAcitonIndex != lastAcitonIndex && switchModeInput_stateMonitor == 0)
                 {
                     state = 1;
-                Debug.Log("switchModeInput"+state);
-            }
-
-                else
-                {
-                    state = 0;
+                    switchModeInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
+                else if (nowAcitonIndex == lastAcitonIndex && switchModeInput_stateMonitor == 1)
+                {
+                    state = 2;
+                }
+            }
+            else if (state == 0 && switchModeInput_stateMonitor == 1)
+            {
+                switchModeInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
         public int worldMenuInput()
         {
-            int state;
+            int state = 0;
                 if (World_Menu_Button.IsTouch())
+            {
+                nowAcitonIndex = 11;
+                if (nowAcitonIndex != lastAcitonIndex && worldMenuInput_stateMonitor == 0)
                 {
-                    Debug.Log("worldMenuInput");
                     state = 1;
+                    worldMenuInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && worldMenuInput_stateMonitor == 1)
                 {
-                    state = 0;
+                    state = 2;
                 }
+            }
+            else if (state == 0 && worldMenuInput_stateMonitor == 1)
+            {
+                worldMenuInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
         public int teleportInput()
         {
-            int state;
+            int state = 0;
 
-                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                if (hi5_object_judgeMent_1.IsFly() && hi5_object_judgeMent_2.IsHandFist())
+            {
+                nowAcitonIndex = 12;
+                if (nowAcitonIndex != lastAcitonIndex && teleportInput_stateMonitor == 0)
+                {
+                    state = 1;
+                    teleportInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
+                }
+                else if (nowAcitonIndex == lastAcitonIndex && teleportInput_stateMonitor == 1)
                 {
                     state = 2;
                 }
-
-                else if (hi5_object_judgeMent_1.IsHandIndexPoint())
-                {
-                    state = 1;
-                }
-                else
-                {
-                    state = 0;
-                }
+            }
+            else if (state == 0 && teleportInput_stateMonitor == 1)
+            {
+                teleportInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 

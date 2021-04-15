@@ -30,10 +30,9 @@ public class VoxelSelector : MonoBehaviour
     private void ProcessInput()
     {
         // 如果有选择事件被触发
-        if (vrcon.selectVoxelInput() == 1 && !ToolManager.IsCDTrigger())
+        if (vrcon.selectVoxelInput() == 1)
         {
             // 选中位置的信息存入一个Voxel对象
-            ToolManager.setCDTrigger(true);
             Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position / WorldDataManager.Instance.ActiveWorld.worldSize);
             //Debug.Log(pos);
             foreach (Vector3Int po in vp.targetObj.voxelObjectData.VoxelDataDict.Keys)

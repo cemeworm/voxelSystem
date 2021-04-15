@@ -59,14 +59,12 @@ public class FaceSelector : MonoBehaviour
         }
         else // VR mode
         {
-            if (vrcon.selectFaceInput() == 1 && !ToolManager.IsCDTrigger())
+            if (vrcon.selectFaceInput() == 3)
             {
-                ToolManager.setCDTrigger(true);
                 TriggerSelection();
             }
-            if (vrcon.selectFaceInput() == 2 && !ToolManager.IsCDTrigger())
+            if (vrcon.selectFaceInput() == 2)
             {
-                ToolManager.setCDTrigger(true);
                 Selecting();
             }
         }

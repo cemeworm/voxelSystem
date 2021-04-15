@@ -83,10 +83,9 @@ public class ObjectSelector : MonoBehaviour
         }
         else // VR mode
         {
-            if (vrcon.selectObjectInput() == 1 && !ToolManager.IsCDTrigger())
+            if (vrcon.selectObjectInput() == 1)
             {
                 // 选中Object
-                ToolManager.setCDTrigger(true);
                 ObjectComponent[] os = WorldDataManager.Instance.ActiveWorld.GetVoxelObjectsAt(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position);
                 if (os.Length > 0)
                 {

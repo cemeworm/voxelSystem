@@ -72,37 +72,33 @@ public class ObjectManipulator : MonoBehaviour
             if (this.objectSelector.selectedObjects.Count > 0)
             {
                 // 按下正面按钮，启动物体移动
-                if (vrcon.moveObjectInput() == 1 && !ToolManager.IsCDTrigger())
+                if (vrcon.moveObjectInput() == 1)
                 {
-                    ToolManager.setCDTrigger(true);
+         
                     moveStartLocHand = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
                     moveStartLocObj = this.objectSelector.GetSelectedObject().gridBasePoint;
                 }
                 
-                if ((vrcon.moveObjectInput() == 2 && !ToolManager.IsCDTrigger()) || (vrcon.copyObjectInput() == 2 && !ToolManager.IsCDTrigger())) // 保持按住正面按钮，移动物体
+                if ((vrcon.moveObjectInput() == 2 ) || (vrcon.copyObjectInput() == 2)) // 保持按住正面按钮，移动物体
                 {
-                    ToolManager.setCDTrigger(true);
                     MoveObjectByController();
                 }
                 
-                if (vrcon.copyObjectInput() == 1 && !ToolManager.IsCDTrigger()) // 按下扳机键，启动复制
+                if (vrcon.copyObjectInput() == 1) // 按下扳机键，启动复制
                 {
-                    ToolManager.setCDTrigger(true);
                     moveStartLocHand = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
                     CopyObject();
                 }
                 
-                if (vrcon.combineObjectInput() == 1 && !ToolManager.IsCDTrigger()) // 启动合并Object
+                if (vrcon.combineObjectInput() == 1) // 启动合并Object
                 {
                     // 根据菜单选择合并模式
-                    ToolManager.setCDTrigger(true);
                     mOptions.gameObject.SetActive(true);
                     Debug.Log("merge_start");
                 }
 
-                if (vrcon.deleteObjectInput() == 1 && !ToolManager.IsCDTrigger()) // 启动删除Object
+                if (vrcon.deleteObjectInput() == 1) // 启动删除Object
                 {
-                    ToolManager.setCDTrigger(true);
                     for (int i = objectSelector.selectedObjects.Count - 1; i >= 0;i--)
                     {
                         Debug.Log("Delete" + objectSelector.selectedObjects[i].name);
@@ -113,22 +109,22 @@ public class ObjectManipulator : MonoBehaviour
             }
             else
             {
-                // 启动创建新Object
-                if (vrcon.createObjectInput() == 2 && !ToolManager.IsCDTrigger())
+
+                if (vrcon.createObjectInput() == 3)
                 {
-                    ToolManager.setCDTrigger(true);
-                    CreatingNewObject();
-                }
-                if (vrcon.createObjectInput() == 1 && !ToolManager.IsCDTrigger())
-                {
-                    ToolManager.setCDTrigger(true);
                     CreateNewObject();
                 }
+                // 启动创建新Object
+                if (vrcon.createObjectInput() == 2)
+                {
+
+                    CreatingNewObject();
+                }
+
             }
-            if (vrcon.worldMenuInput() == 1 && !ToolManager.IsCDTrigger()) // 启动world切换
+            if (vrcon.worldMenuInput() == 1) // 启动world切换
             {
                 // 根据菜单选择操作
-                ToolManager.setCDTrigger(true);
                 wOptions.gameObject.SetActive(true);
 
             }

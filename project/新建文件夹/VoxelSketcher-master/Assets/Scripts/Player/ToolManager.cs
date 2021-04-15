@@ -16,9 +16,7 @@ public class ToolManager : Singleton<ToolManager>
     //public ObjectSelector objectSelector;
     private Hi5InputController vrcon;
     public UnityEngine.TextMesh Switch_Mode_Button_Text;
-    static float cd;
-    static bool isCDTrigger;
-    static public int Id;
+    public static int Id;
 
     public enum ToolMode
     {
@@ -43,9 +41,6 @@ public class ToolManager : Singleton<ToolManager>
         objectManipulator = GameObject.Find("ObjectManipulator").GetComponent<ObjectManipulator>();
 /*        objectSelector = GameObject.Find("ObjectSelector").GetComponent<ObjectSelector>();*/
 
-        isCDTrigger = false;
-        cd = 1.0f;
-        Id = 0;
         ToolModeSwitching();
     }
 
@@ -53,33 +48,9 @@ public class ToolManager : Singleton<ToolManager>
     void Update()
     {
         Debug.Log("update:toolmanager");
-        if (IsCDTrigger())
-        {
-            cd -= 0.1f;
-            if (cd <= 0.1)
-            {
-                cd = 1.0f;
-                setCDTrigger(false);
-            }
-        }
-        Debug.Log(IsCDTrigger());
         ToolModeUpdate();
         InteractionModeUpdate();
         
-    }
-
-    static public bool IsCDTrigger()
-    {
-        if (isCDTrigger)
-        {
-            return true;
-        }
-        else return false;
-    }
-
-    static public void setCDTrigger(bool state)
-    {
-        isCDTrigger = state;
     }
 
     private void ToolModeUpdate()
@@ -110,9 +81,8 @@ public class ToolManager : Singleton<ToolManager>
         }
         else if (Imode == InteractionMode.VR)
         {
-            if (vrcon.switchModeInput() == 1 && !IsCDTrigger())
+            if (vrcon.switchModeInput() == 1)
             {
-                setCDTrigger(true);
                 if (Tmode == ToolMode.ObjectManipulation && objectManipulator.objectSelector.selectedObjects.Count > 0)
                 {
                     Tmode = ToolMode.PlaceVoxel;
