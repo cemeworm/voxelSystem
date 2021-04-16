@@ -90,16 +90,18 @@ public class ToolManager : Singleton<ToolManager>
                 }
                 else if (Tmode == ToolMode.PlaceVoxel)
                 {
-                    Tmode = ToolMode.ObjectManipulation;
+                    Tmode = ToolMode.FaceStretch;
                     ToolModeSwitching();
                     voxelPlacer.targetObj.gameObject.GetComponent<Outline>().enabled = false;
                     voxelPlacer.targetObj.gameObject.GetComponent<Outline>().enabled = true;
                 }
-                /*else if (Tmode == ToolMode.FaceStretch)
+                else if (Tmode == ToolMode.FaceStretch)
                 {
                     Tmode = ToolMode.ObjectManipulation;
                     ToolModeSwitching();
-                }*/
+                    faceStretcher.targetObj.gameObject.GetComponent<Outline>().enabled = false;
+                    faceStretcher.targetObj.gameObject.GetComponent<Outline>().enabled = true;
+                }
                 Debug.Log("Current Mode: "+Tmode);
             }
         }
@@ -113,8 +115,8 @@ public class ToolManager : Singleton<ToolManager>
                 objectManipulator.gameObject.SetActive(true);
                 Switch_Mode_Button_Text.text = "object";
                 voxelPlacer.gameObject.SetActive(false);
-                //faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(false);
-                //faceStretcher.gameObject.SetActive(false);
+                faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(false);
+                faceStretcher.gameObject.SetActive(false);
                 break;
             case ToolMode.PlaceVoxel:
                 voxelPlacer.gameObject.SetActive(true);
@@ -123,14 +125,15 @@ public class ToolManager : Singleton<ToolManager>
                 objectManipulator.gameObject.SetActive(false);
                 faceStretcher.gameObject.SetActive(false);
                 break;
-            /*case ToolMode.FaceStretch:
+            case ToolMode.FaceStretch:
                 faceStretcher.gameObject.SetActive(true);
+                Switch_Mode_Button_Text.text = "face";
                 faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(true);
                 faceStretcher.targetObj = voxelPlacer.targetObj;
 
                 voxelPlacer.gameObject.SetActive(false);
                 objectManipulator.gameObject.SetActive(false);
-                break;*/
+                break;
             default:
                 break;
         }

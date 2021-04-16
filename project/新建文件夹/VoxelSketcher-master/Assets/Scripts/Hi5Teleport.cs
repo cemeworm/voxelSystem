@@ -74,6 +74,7 @@ namespace Hi5_Interaction_Core
 		private LineRenderer pointerLineRenderer;
 		private GameObject teleportPointerObject;
 		private Transform pointerStartTransform;
+		private Transform pointerStartTransform_2;
 		private Player player = null;
 		private TeleportArc teleportArc = null;
 
@@ -149,7 +150,7 @@ namespace Hi5_Interaction_Core
 		{
 			_instance = this;
 
-			//chaperoneInfoInitializedAction = ChaperoneInfo.InitializedAction(OnChaperoneInfoInitialized);
+			chaperoneInfoInitializedAction = ChaperoneInfo.InitializedAction(OnChaperoneInfoInitialized);
 
 			pointerLineRenderer = GetComponentInChildren<LineRenderer>();
 			teleportPointerObject = pointerLineRenderer.gameObject;
@@ -407,22 +408,25 @@ namespace Hi5_Interaction_Core
 			Debug.Log("UpdatePointer");
 			Vector3 pointerStart = pointerStartTransform.position;
 			Vector3 pointerEnd;
-			Vector3 pointerDir = pointerStartTransform.position;
+			//Vector3 pointerDir = pointerStartTransform_2.position - pointerStartTransform.position;
+			Vector3 pointerDir = pointerStartTransform.up;
+
 			bool hitSomething = false;
 			bool showPlayAreaPreview = false;
 			Vector3 playerFeetOffset = player.trackingOriginTransform.position - player.feetPositionGuess;
 
-			Vector3 arcVelocity = pointerDir * 2.0f;
+			Vector3 arcVelocity = pointerDir* 7.0f;
 			TeleportMarkerBase hitTeleportMarker = null;
+			Debug.Log(pointerDir);
 
 			//Check pointer angle
-			float dotUp = Vector3.Dot(pointerDir, Vector3.up);
+			float dotUp = Vector3.Dot(pointerDir, Vector3.right);
 			float dotForward = Vector3.Dot(pointerDir, player.hmdTransform.forward);
 			Debug.Log("dotUp:"+dotUp);
 			Debug.Log("dotForward:" + dotForward);
 
 			bool pointerAtBadAngle = false;
-/*			if ((dotForward > 0 && dotUp > 0.75f) || (dotForward < 0.0f && dotUp > 0.5f))
+/*			if ((dotForward > 0.0f && dotUp > 0.75f) || (dotForward < 0.0f && dotUp > 0.5f))
 			{
 				pointerAtBadAngle = true;
 			}*/
@@ -852,6 +856,7 @@ namespace Hi5_Interaction_Core
 			{
 				Debug.Log("pointHand");
 				pointerStartTransform = GetPointerStartTransform();
+				pointerStartTransform_2 = GetPointerStartTransform_2();
 				Debug.Log("pointerStartTransform"+pointerStartTransform);
 
 
@@ -1219,14 +1224,12 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		private Transform GetPointerStartTransform()
 		{
-/*			if (hand.noSteamVRFallbackCamera != null)
-			{
-				return hand.noSteamVRFallbackCamera.transform;
-			}
-			else
-			{*/
 				return pointerHand.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform;
-			//}
+		}
+
+		private Transform GetPointerStartTransform_2()
+		{
+			return pointerHand.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[3].transform;
 		}
 	}
 }

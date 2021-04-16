@@ -13,6 +13,7 @@ public class FaceStretcher : MonoBehaviour
     public int stretchResult;
     private Vector3? m_downCursorPoint;
     private Vector3? m_upCursorPoint;
+    private int inputState;
 
     public List<Vector3Int> stretchedPoints;
 
@@ -30,7 +31,7 @@ public class FaceStretcher : MonoBehaviour
 
     private void Update()
     {
-        //Stretch
+        inputState = vrcon.pullFaceInput();
         ComputeStretching(ToolManager.Instance.Imode);
 
         //Apply
@@ -43,11 +44,12 @@ public class FaceStretcher : MonoBehaviour
         }
         else
         {
-            if (vrcon.pullFaceInput() == 1 && faceSelector.normal != null)
+            if (inputState == 3 && faceSelector.normal != null)
             {
                 ApplyStretching();
             }
         }
+
 
     }
 
@@ -85,7 +87,14 @@ public class FaceStretcher : MonoBehaviour
         }
         else // VR mode
         {
-            if (vrcon.pullFaceInput() == 3)
+            if (inputState == 1)
+            {
+                m_upCursorPoint = null;
+                m_downCursorPoint = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
+                Debug.Log("vrcon.pullFaceInput.stateDown");
+            }
+
+            if (inputState == 2)
             {
                 if (m_downCursorPoint != null && selectionIndicator.data.Count > 0 && faceSelector.normal != null)
                 {
@@ -101,12 +110,6 @@ public class FaceStretcher : MonoBehaviour
                 }
                 //Make stretched data
                 UpdateStretchedPointDict();
-            }
-            if (vrcon.pullFaceInput() == 2)
-            {
-                m_upCursorPoint = null;
-                m_downCursorPoint = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
-                Debug.Log("vrcon.pullFaceInput.stateDown");
             }
             
         }

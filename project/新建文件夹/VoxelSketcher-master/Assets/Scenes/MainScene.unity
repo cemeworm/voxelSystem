@@ -2017,6 +2017,52 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.015, y: 0.015, z: 0.015}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &319063430
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 319063432}
+  - component: {fileID: 319063431}
+  m_Layer: 0
+  m_Name: HitpointReader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &319063431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319063430}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfb2bc0a3e1787b4599fe62bc979fd19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitPoint:
+    position: {x: 0, y: 0, z: 0}
+    normal: {x: 0, y: 0, z: 0}
+--- !u!4 &319063432
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 319063430}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.426, z: -0.6}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 16
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &327428631
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2574,7 +2620,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 410914312}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84a4f15a3179f1d4993aded11f4d0232, type: 3}
+  m_Script: {fileID: 11500000, guid: 2a83de402d2c11c4b8d9e1df9f5d6209, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   locked: 0
@@ -5005,6 +5051,7 @@ GameObject:
   - component: {fileID: 780902043}
   - component: {fileID: 780902042}
   - component: {fileID: 780902041}
+  - component: {fileID: 780902044}
   m_Layer: 0
   m_Name: HI5_Right_Human_Collider
   m_TagString: Untagged
@@ -5101,6 +5148,28 @@ MonoBehaviour:
   - {fileID: 437420072}
   - {fileID: 1810439420}
   m_Renderer: {fileID: 1454770939}
+--- !u!114 &780902044
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 780902039}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 362f4cb549140154cbe561f1c0a95dc4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  active: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
+  thickness: 0.002
+  clickColor: {r: 0, g: 1, b: 0, a: 1}
+  holder: {fileID: 0}
+  pointer: {fileID: 0}
+  addRigidBody: 1
+  reference: {fileID: 0}
+  HI5_Left_Human_Collider: {fileID: 148529299}
+  HI5_Right_Human_Collider: {fileID: 780902042}
 --- !u!1 &802500793
 GameObject:
   m_ObjectHideFlags: 0
@@ -5757,6 +5826,9 @@ MonoBehaviour:
   switchModeInput_stateMonitor: 0
   worldMenuInput_stateMonitor: 0
   teleportInput_stateMonitor: 0
+  selectFaceInput_stateMonitor: 0
+  pullFaceInput_stateMonitor: 0
+  laserObjectInput_stateMonitor: 0
 --- !u!4 &915121730
 Transform:
   m_ObjectHideFlags: 0
@@ -10407,7 +10479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 3
+  index: 1
   origin: {fileID: 148529297}
 --- !u!135 &1993439528
 SphereCollider:

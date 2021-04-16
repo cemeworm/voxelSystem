@@ -43,6 +43,9 @@ namespace Hi5_Interaction_Core
         public int switchModeInput_stateMonitor = 0;
         public int worldMenuInput_stateMonitor = 0;
         public int teleportInput_stateMonitor = 0;
+        public int selectFaceInput_stateMonitor = 0;
+        public int pullFaceInput_stateMonitor = 0;
+        public int laserObjectInput_stateMonitor = 0;
 
 
 
@@ -311,41 +314,52 @@ namespace Hi5_Interaction_Core
         public int selectFaceInput()
         {
             int state = 0;
-               /* if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
-                {
-                    Debug.Log("selectFacecInput");
-                    state = 2;
-                }
-
-                else if (hi5_object_judgeMent_2.IsHandIndexPoint())
+                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+            {
+                nowAcitonIndex = 14;
+                if (nowAcitonIndex != lastAcitonIndex && selectFaceInput_stateMonitor == 0)
                 {
                     state = 1;
+                    selectFaceInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
                 }
-                else
+                else if (nowAcitonIndex == lastAcitonIndex && selectFaceInput_stateMonitor == 1)
                 {
-                    state = 0;
-                }*/
+                    state = 2;
+                }
+            }
+            else if (state == 0 && selectFaceInput_stateMonitor == 1)
+            {
+                selectFaceInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
         public int pullFaceInput()
         {
             int state = 0;
-                /*if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsFingerPlane())
+            if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsFingerPlane())
+            {
+                nowAcitonIndex = 13;
+                if (nowAcitonIndex != lastAcitonIndex && pullFaceInput_stateMonitor == 0)
                 {
-                    Debug.Log("pullFaceInput");
+                    state = 1;
+                    pullFaceInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
+                }
+                else if (nowAcitonIndex == lastAcitonIndex && pullFaceInput_stateMonitor == 1)
+                {
                     state = 2;
                 }
-
-                else if (hi5_object_judgeMent_2.IsHandFist())
-                {
-                    Debug.Log("pullFaceInput");
-                    state = 1;
-                }
-                else
-                {
-                    state = 0;
-                }*/
+            }
+            else if (state == 0 && pullFaceInput_stateMonitor == 1)
+            {
+                pullFaceInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
             return state;
         }
 
@@ -406,7 +420,7 @@ namespace Hi5_Interaction_Core
         {
             int state = 0;
 
-                if (hi5_object_judgeMent_1.IsFly() && hi5_object_judgeMent_2.IsHandFist())
+                if (hi5_object_judgeMent_1.IsFly())
             {
                 nowAcitonIndex = 12;
                 if (nowAcitonIndex != lastAcitonIndex && teleportInput_stateMonitor == 0)
@@ -423,6 +437,32 @@ namespace Hi5_Interaction_Core
             else if (state == 0 && teleportInput_stateMonitor == 1)
             {
                 teleportInput_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
+            return state;
+        }
+
+        public int laserObjectInput()
+        {
+            int state = 0;
+            if (hi5_object_judgeMent_1.IsOK() && hi5_object_judgeMent_2.IsHandIndexPoint())
+            {
+                nowAcitonIndex = 15;
+                if (nowAcitonIndex != lastAcitonIndex && laserObjectInput_stateMonitor == 0)
+                {
+                    state = 1;
+                    laserObjectInput_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
+                }
+                else if (nowAcitonIndex == lastAcitonIndex && laserObjectInput_stateMonitor == 1)
+                {
+                    state = 2;
+                }
+            }
+            else if (state == 0 && laserObjectInput_stateMonitor == 1)
+            {
+                laserObjectInput_stateMonitor = 0;
                 lastAcitonIndex = 0;
                 state = 3;
             }
