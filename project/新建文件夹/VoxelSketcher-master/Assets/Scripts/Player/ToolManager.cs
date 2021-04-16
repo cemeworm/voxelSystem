@@ -130,7 +130,6 @@ public class ToolManager : Singleton<ToolManager>
                 Switch_Mode_Button_Text.text = "face";
                 faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(true);
                 faceStretcher.targetObj = voxelPlacer.targetObj;
-
                 voxelPlacer.gameObject.SetActive(false);
                 objectManipulator.gameObject.SetActive(false);
                 break;

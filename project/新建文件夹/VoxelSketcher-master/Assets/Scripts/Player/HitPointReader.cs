@@ -15,11 +15,15 @@ public class HitPointReader : MonoBehaviour
 
     private Hi5InputController vrcon;
     private Hi5Laser hi5Laser;
+    public Hi5_Glove_Interaction_Hand HI5_Left_Human_Collider;
+    public Hi5_Glove_Interaction_Hand HI5_Right_Human_Collider;
 
     private void Awake()
     {
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
         this.hi5Laser = vrcon.HI5_Right_Human_Collider.GetComponent<Hi5Laser>();
+        HI5_Left_Human_Collider = GameObject.Find("HI5_Left_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
+        HI5_Right_Human_Collider = GameObject.Find("HI5_Right_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
     }
 
     private void Update()
@@ -42,7 +46,9 @@ public class HitPointReader : MonoBehaviour
         {
             if (ToolManager.Instance.Tmode == ToolManager.ToolMode.FaceStretch)
             {
+                //Physics.Raycast(new Ray(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position, HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.right), out hit);
                 Physics.Raycast(new Ray(hi5Laser.transform.position, hi5Laser.transform.forward), out hit);
+
                 if (hit.collider)
                 {
                     hitting = true;
@@ -67,11 +73,25 @@ public class HitPointReader : MonoBehaviour
     {
         if (ToolManager.Instance.Imode == ToolManager.InteractionMode.Desktop)
         {
+            Destroy(this.hi5Laser.holder);
+            Destroy(this.hi5Laser.pointer);
             this.hi5Laser.enabled = false;
         }
         else
         {
-            this.hi5Laser.enabled = active;
+            if(active == false)
+            {
+                Destroy(this.hi5Laser.holder);
+                Destroy(this.hi5Laser.pointer);
+                this.hi5Laser.enabled = false;
+
+            }
+            else if(active == true)
+            {
+                this.hi5Laser.enabled = true;
+
+                this.hi5Laser.enAbled();
+            }
         }
     }
 }

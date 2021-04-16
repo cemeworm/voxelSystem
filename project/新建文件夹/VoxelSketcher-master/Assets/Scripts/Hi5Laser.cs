@@ -27,6 +27,8 @@ namespace Hi5_Interaction_Core
         public Hi5_Glove_Interaction_Hand HI5_Left_Human_Collider;
         public Hi5_Glove_Interaction_Hand HI5_Right_Human_Collider;
         private Hi5InputController vrcon;
+        private int inputState;
+        public Transform finger;
 
 
         Transform previousContact = null;
@@ -46,8 +48,45 @@ namespace Hi5_Interaction_Core
             vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
 
 
+/*            holder = new GameObject();
+            holder.transform.parent = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform;
+            holder.transform.localPosition = Vector3.zero;
+            holder.transform.localRotation = Quaternion.identity;
+
+            pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            pointer.transform.parent = holder.transform;
+            pointer.transform.localScale = new Vector3(thickness, thickness, 100f);
+            pointer.transform.localPosition = new Vector3(0f, 0f, 50f);
+            pointer.transform.localRotation = Quaternion.identity;
+            BoxCollider collider = pointer.GetComponent<BoxCollider>();
+            if (addRigidBody)
+            {
+                if (collider)
+                {
+                    collider.isTrigger = true;
+                }
+                Rigidbody rigidBody = pointer.AddComponent<Rigidbody>();
+                rigidBody.isKinematic = true;
+            }
+            else
+            {
+                if (collider)
+                {
+                    Object.Destroy(collider);
+                }
+            }
+            Material newMaterial = new Material(Shader.Find("Unlit/Color"));
+            newMaterial.SetColor("_Color", color);
+            pointer.GetComponent<MeshRenderer>().material = newMaterial;*/
+        }
+
+        internal void enAbled()
+        {
+            Debug.Log("enAbled");
             holder = new GameObject();
-            holder.transform.parent = HI5_Right_Human_Collider.transform;
+            finger = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform;
+            finger.localRotation = Quaternion.Euler(0, 90, 0);
+            holder.transform.parent = finger;
             holder.transform.localPosition = Vector3.zero;
             holder.transform.localRotation = Quaternion.identity;
 
@@ -78,7 +117,7 @@ namespace Hi5_Interaction_Core
             pointer.GetComponent<MeshRenderer>().material = newMaterial;
         }
 
-        public virtual void OnPointerIn(PointerEventArgs e)
+ /*       public virtual void OnPointerIn(PointerEventArgs e)
         {
             if (PointerIn != null)
                 PointerIn(this, e);
@@ -94,11 +133,13 @@ namespace Hi5_Interaction_Core
         {
             if (PointerOut != null)
                 PointerOut(this, e);
-        }
+        }*/
 
 
         private void Update()
         {
+            Debug.Log("update:Hi5Laser");
+            inputState = vrcon.laserObjectInput();
             if (!isActive)
             {
                 isActive = true;
@@ -107,28 +148,18 @@ namespace Hi5_Interaction_Core
 
             float dist = 100f;
 
-            Ray raycast = new Ray(transform.position, transform.forward);
+            Ray raycast = new Ray(holder.transform.position, holder.transform.forward);
             RaycastHit hit;
             bool bHit = Physics.Raycast(raycast, out hit);
 
             if (previousContact && previousContact != hit.transform)
             {
-                PointerEventArgs args = new PointerEventArgs();
-                //args.fromInputSource = pose.inputSource;
-                args.distance = 0f;
-                args.flags = 0;
-                args.target = previousContact;
-                OnPointerOut(args);
+
                 previousContact = null;
             }
             if (bHit && previousContact != hit.transform)
             {
-                PointerEventArgs argsIn = new PointerEventArgs();
-                //argsIn.fromInputSource = pose.inputSource;
-                argsIn.distance = hit.distance;
-                argsIn.flags = 0;
-                argsIn.target = hit.transform;
-                OnPointerIn(argsIn);
+
                 previousContact = hit.transform;
             }
             if (!bHit)
@@ -138,24 +169,21 @@ namespace Hi5_Interaction_Core
             if (bHit && hit.distance < 100f)
             {
                 dist = hit.distance;
+                Debug.Log("bHit:" + dist);
+
             }
 
-            if (bHit && vrcon.laserObjectInput() == 1)
+            if (bHit && inputState == 1)
             {
-                PointerEventArgs argsClick = new PointerEventArgs();
-                //argsClick.fromInputSource = pose.inputSource;
-                argsClick.distance = hit.distance;
-                argsClick.flags = 0;
-                argsClick.target = hit.transform;
-                OnPointerClick(argsClick);
+
             }
 
-            if (vrcon.laserObjectInput() == 2)
+            if (inputState == 2)
             {
                 pointer.transform.localScale = new Vector3(thickness * 5f, thickness * 5f, dist);
                 pointer.GetComponent<MeshRenderer>().material.color = clickColor;
             }
-            else if(vrcon.laserObjectInput() == 3)
+            else if(inputState == 3)
             {
                 pointer.transform.localScale = new Vector3(thickness, thickness, dist);
                 pointer.GetComponent<MeshRenderer>().material.color = color;
@@ -164,7 +192,7 @@ namespace Hi5_Interaction_Core
         }
     }
 
-    public struct PointerEventArgs
+/*    public struct PointerEventArgs
     {
         //public SteamVR_Input_Sources fromInputSource;
         public uint flags;
@@ -172,5 +200,5 @@ namespace Hi5_Interaction_Core
         public Transform target;
     }
 
-    public delegate void PointerEventHandler(object sender, PointerEventArgs e);
+    public delegate void PointerEventHandler(object sender, PointerEventArgs e);*/
 }

@@ -17,7 +17,7 @@ public class FaceSelector : MonoBehaviour
     // VR变量
     public FaceStretcher faceStretcher;
     private Hi5InputController vrcon;
-    
+    private int inputState;
 
     public List<Vector3Int> selectionPoints;
 
@@ -41,6 +41,7 @@ public class FaceSelector : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        inputState = vrcon.selectFaceInput();
         GetSelectionPoints(ToolManager.Instance.Imode);
     }
 
@@ -59,11 +60,11 @@ public class FaceSelector : MonoBehaviour
         }
         else // VR mode
         {
-            if (vrcon.selectFaceInput() == 3)
+            if (inputState == 3)
             {
                 TriggerSelection();
             }
-            if (vrcon.selectFaceInput() == 2)
+            if (inputState == 2)
             {
                 Selecting();
             }
@@ -115,6 +116,7 @@ public class FaceSelector : MonoBehaviour
          HitPoint currentPoint = hitPointReader.hitPoint;
          if (m_downPoint != null && hitPointReader.hitting)
          {
+            Debug.Log("m_downPoint");
              //Must be same normal face
              if (currentPoint.normal == m_downPoint.Value.normal &&
                  Vector3.Dot(currentPoint.position - m_downPoint.Value.position, currentPoint.normal) == 0)
