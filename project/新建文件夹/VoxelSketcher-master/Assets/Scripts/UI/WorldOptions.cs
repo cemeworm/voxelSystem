@@ -8,9 +8,11 @@ public class WorldOptions : MonoBehaviour
     public int worldCounter;
 
 
+
     public void Start() 
     {
         this.worldCounter = Convert.ToInt32(WorldDataManager.Instance.ActiveWorld.name);
+
     }
 
     public void OnPressForCreate()
@@ -25,7 +27,6 @@ public class WorldOptions : MonoBehaviour
         // 切换到新world中去
 
         WorldDataManager.Instance.NextWorld();
-
         this.gameObject.SetActive(false);
     }
 

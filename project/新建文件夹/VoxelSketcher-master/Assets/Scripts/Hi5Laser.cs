@@ -48,36 +48,36 @@ namespace Hi5_Interaction_Core
             vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
 
 
-/*            holder = new GameObject();
-            holder.transform.parent = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform;
-            holder.transform.localPosition = Vector3.zero;
-            holder.transform.localRotation = Quaternion.identity;
+            /*            holder = new GameObject();
+                        holder.transform.parent = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform;
+                        holder.transform.localPosition = Vector3.zero;
+                        holder.transform.localRotation = Quaternion.identity;
 
-            pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
-            pointer.transform.parent = holder.transform;
-            pointer.transform.localScale = new Vector3(thickness, thickness, 100f);
-            pointer.transform.localPosition = new Vector3(0f, 0f, 50f);
-            pointer.transform.localRotation = Quaternion.identity;
-            BoxCollider collider = pointer.GetComponent<BoxCollider>();
-            if (addRigidBody)
-            {
-                if (collider)
-                {
-                    collider.isTrigger = true;
-                }
-                Rigidbody rigidBody = pointer.AddComponent<Rigidbody>();
-                rigidBody.isKinematic = true;
-            }
-            else
-            {
-                if (collider)
-                {
-                    Object.Destroy(collider);
-                }
-            }
-            Material newMaterial = new Material(Shader.Find("Unlit/Color"));
-            newMaterial.SetColor("_Color", color);
-            pointer.GetComponent<MeshRenderer>().material = newMaterial;*/
+                        pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                        pointer.transform.parent = holder.transform;
+                        pointer.transform.localScale = new Vector3(thickness, thickness, 100f);
+                        pointer.transform.localPosition = new Vector3(0f, 0f, 50f);
+                        pointer.transform.localRotation = Quaternion.identity;
+                        BoxCollider collider = pointer.GetComponent<BoxCollider>();
+                        if (addRigidBody)
+                        {
+                            if (collider)
+                            {
+                                collider.isTrigger = true;
+                            }
+                            Rigidbody rigidBody = pointer.AddComponent<Rigidbody>();
+                            rigidBody.isKinematic = true;
+                        }
+                        else
+                        {
+                            if (collider)
+                            {
+                                Object.Destroy(collider);
+                            }
+                        }
+                        Material newMaterial = new Material(Shader.Find("Unlit/Color"));
+                        newMaterial.SetColor("_Color", color);
+                        pointer.GetComponent<MeshRenderer>().material = newMaterial;*/
         }
 
         internal void enAbled()
@@ -169,8 +169,6 @@ namespace Hi5_Interaction_Core
             if (bHit && hit.distance < 100f)
             {
                 dist = hit.distance;
-                Debug.Log("bHit:" + dist);
-
             }
 
             if (bHit && inputState == 1)

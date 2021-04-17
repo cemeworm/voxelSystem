@@ -30,7 +30,6 @@ public class VoxelPlacer : MonoBehaviour
         {
             voxel = VoxelInfoLibrary.GetVoxel("Stone"),
             color = Color.white,
-            VoxelId = ToolManager.Id
         };
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
         HI5_Left_Human_Collider = GameObject.Find("HI5_Left_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
@@ -120,7 +119,6 @@ public class VoxelPlacer : MonoBehaviour
                 // 如果此处没有voxel，进一步判断是否与已有voxel相连，如果相连，则处理按键的事件
                 if (v.voxel == null && this.targetObj.IsNearVoxel(pos))
                 {
-                    ToolManager.Id++;
                     WorldDataManager.Instance.ActiveWorld.SetVoxelAt(this.targetObj, pos, voxelArg);
                     this.targetObj.UpdateObjectMesh();
                 }

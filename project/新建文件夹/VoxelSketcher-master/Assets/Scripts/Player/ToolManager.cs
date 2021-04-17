@@ -16,7 +16,6 @@ public class ToolManager : Singleton<ToolManager>
     //public ObjectSelector objectSelector;
     private Hi5InputController vrcon;
     public UnityEngine.TextMesh Switch_Mode_Button_Text;
-    public static int Id;
 
     public enum ToolMode
     {

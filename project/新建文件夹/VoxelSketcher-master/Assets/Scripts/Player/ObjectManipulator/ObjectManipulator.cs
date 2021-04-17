@@ -16,6 +16,7 @@ public class ObjectManipulator : MonoBehaviour
     public MergeOptions mOptions;
     public WorldOptions wOptions;
     public List<Vector3Int> creatingObjectBuffer;
+    public int copyObjectInputState;
 
     // 移动物体
     private Vector3 moveStartLocHand;
@@ -24,11 +25,11 @@ public class ObjectManipulator : MonoBehaviour
     private void Start()
     {
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
-
     }
 
     private void Update()
     {
+        copyObjectInputState = vrcon.copyObjectInput();
         Debug.Log("update:manipulator");
         ProcessInput(ToolManager.Instance.Imode);
         vrcon.WorldChange();
@@ -79,12 +80,12 @@ public class ObjectManipulator : MonoBehaviour
                     moveStartLocObj = this.objectSelector.GetSelectedObject().gridBasePoint;
                 }
                 
-                if ((vrcon.moveObjectInput() == 2 ) || (vrcon.copyObjectInput() == 2)) // 保持按住正面按钮，移动物体
+                if ((vrcon.moveObjectInput() == 2 ) || (copyObjectInputState == 2)) // 保持按住正面按钮，移动物体
                 {
                     MoveObjectByController();
                 }
                 
-                if (vrcon.copyObjectInput() == 1) // 按下扳机键，启动复制
+                if (copyObjectInputState == 1) // 按下扳机键，启动复制
                 {
                     moveStartLocHand = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
                     CopyObject();

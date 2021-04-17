@@ -762,6 +762,48 @@ namespace Hi5_Interaction_Core
             return false;
         }
 
+        internal bool IsTwo()
+        {
+            if (Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].IsFingerPlane() && Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.EMiddle].IsFingerPlane())
+            {
+                int count = 0;
+                if (Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.ERing].IsFingerFist())
+                {
+                    count++;
+
+                }
+
+                if (Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.EPinky].IsFingerFist())
+                {
+                    count++;
+
+                }
+                if (count == 2)
+                    return true;
+                else
+                    return false;
+            }
+            return false;
+        }
+
+        internal bool IsThree()
+        {
+            int count = 0;
+            if (Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.EPinky].IsFingerFist())
+            {
+                if (Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].IsFingerPlane())
+                    count++;
+                if (Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.EMiddle].IsFingerPlane())
+                    count++;
+                if (Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.ERing].IsFingerPlane())
+                    count++;
+            }
+            if (count >= 3)
+                return true;
+            else
+                return false;
+        }
+
         internal bool IsFly()
         {
             if (Hand.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].IsFingerPlane())

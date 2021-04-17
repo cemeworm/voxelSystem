@@ -57,26 +57,86 @@ public class WorldData
                 }
                 DeleteObject(o2);
                 o1.UpdateObjectMesh();
+                o1.gameObject.GetComponent<Outline>().enabled = false;
+                o1.gameObject.GetComponent<Outline>().enabled = true;
                 break;
             case MergeType.And:
-                Dictionary<Vector3Int, Voxel> newDataDict = new Dictionary<Vector3Int, Voxel>();
-                foreach (var pair in o1.voxelObjectData.VoxelDataDict)
+            /*Dictionary<Vector3Int, Voxel> newDataDict = new Dictionary<Vector3Int, Voxel>();
+            foreach (var pair in o1.voxelObjectData.VoxelDataDict)
+            {
+                Debug.Log("MergeType.And"); 
+
+                Vector3Int worldPos = pair.Key + o1.gridBasePoint;
+                Debug.Log("worldPos:" + worldPos);
+                Voxel v2 = GetVoxelAt(o2, worldPos);
+                //If o1 and 2o both have
+                if (v2.voxel != null)
                 {
-                    
-                    Vector3Int worldPos = pair.Key + o1.gridBasePoint;
-                    Voxel v2 = GetVoxelAt(o2, worldPos);
-                    //If o1 and 2o both have
-                    if (v2.voxel != null)
-                    {
-                        //Set empty voxel
-                        newDataDict.Add(pair.Key - o1.gridBasePoint, pair.Value);
-                    }
-                    //change to new data dict
-                    o1.voxelObjectData.VoxelDataDict = newDataDict;
+                    Debug.Log("v2.voxel is not null");
+
+                    //Set empty voxel
+                    newDataDict.Add(pair.Key - o1.gridBasePoint, pair.Value);
                 }
+                //change to new data dict
+                //o1.voxelObjectData.VoxelDataDict = newDataDict;
+            }
+            if(newDataDict.Count == 0)
+            {
+                Debug.Log("newDateDict is null");
+
+                DeleteObject(o1);
                 DeleteObject(o2);
+            }
+            else
+            {
+                Debug.Log("newDataDict.Count:"+newDataDict.Count);
+                o1.voxelObjectData.VoxelDataDict = newDataDict;
+                DeleteObject(o2);
+                Debug.Log("o1.voxelObjectData.VoxelDataDict:"+ o1.voxelObjectData.VoxelDataDict.Count);
                 o1.UpdateObjectMesh();
-                break;
+                Debug.Log("o1.UpdateObjectMesh end");
+
+            }
+            break;*/
+            /*Dictionary<Vector3Int, Voxel> newDataDict = new Dictionary<Vector3Int, Voxel>();
+            foreach (var pair in o1.voxelObjectData.VoxelDataDict)
+            {
+
+                Vector3Int worldPos = pair.Key + o1.gridBasePoint;
+                Voxel v2 = GetVoxelAt(o2, worldPos);
+                //If o1 and 2o both have
+                if (v2.voxel != null)
+                {
+                    //Set empty voxel
+                    newDataDict.Add(pair.Key - o1.gridBasePoint, pair.Value);
+                }
+                //change to new data dict
+            }
+            o1.voxelObjectData.VoxelDataDict = newDataDict;
+            DeleteObject(o2);
+            o1.UpdateObjectMesh();
+            o1.gameObject.GetComponent<Outline>().enabled = false;
+            o1.gameObject.GetComponent<Outline>().enabled = true;
+            break;*/
+            Dictionary<Vector3Int, Voxel> newDataDict = new Dictionary<Vector3Int, Voxel>();
+            foreach (var pair in o1.voxelObjectData.VoxelDataDict)
+            {
+
+                Vector3Int worldPos = pair.Key + o1.gridBasePoint;
+                Voxel v2 = GetVoxelAt(o2, worldPos);
+                //If o1 and 2o both have
+                if (v2.voxel == null)
+                {
+                    //Set empty voxel
+                    SetVoxelAt(o1, worldPos, new Voxel());
+                }
+                //change to new data dict
+            }
+            DeleteObject(o2);
+            o1.UpdateObjectMesh();
+            o1.gameObject.GetComponent<Outline>().enabled = false;
+            o1.gameObject.GetComponent<Outline>().enabled = true;
+            break;
             case MergeType.Not:
                 List<Vector3Int> samePosList = new List<Vector3Int>();
                 foreach (var pair in o2.voxelObjectData.VoxelDataDict)
@@ -95,7 +155,11 @@ public class WorldData
                 foreach (var worldPos in samePosList)
                     SetVoxelAt(o2, worldPos, new Voxel());
                 o1.UpdateObjectMesh();
+                o1.gameObject.GetComponent<Outline>().enabled = false;
+                o1.gameObject.GetComponent<Outline>().enabled = true;
                 o2.UpdateObjectMesh();
+                o2.gameObject.GetComponent<Outline>().enabled = false;
+                o2.gameObject.GetComponent<Outline>().enabled = true;
                 break;
             default:
                 break;
@@ -151,7 +215,6 @@ public class WorldData
         {
             v.voxel = VoxelInfoLibrary.GetVoxel("Stone");
             v.color = Color.white;
-            v.VoxelId = ToolManager.Id;
         }
         var c = GameObject.Instantiate(
            Resources.Load<GameObject>("Prefabs/VoxelObject"),
@@ -165,8 +228,6 @@ public class WorldData
         c.voxelObjectData.isStatic = isStatic;
         foreach (var worldPos in GridData)
         {
-            ToolManager.Id++;
-            v.VoxelId = ToolManager.Id;
             SetVoxelAt(c, worldPos, v);
         }
 

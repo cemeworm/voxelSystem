@@ -17,6 +17,8 @@ public class HitPointReader : MonoBehaviour
     private Hi5Laser hi5Laser;
     public Hi5_Glove_Interaction_Hand HI5_Left_Human_Collider;
     public Hi5_Glove_Interaction_Hand HI5_Right_Human_Collider;
+    public Transform finger;
+
 
     private void Awake()
     {
@@ -29,6 +31,7 @@ public class HitPointReader : MonoBehaviour
     private void Update()
     {
         SelectVoxel();
+        Debug.Log("update:hitPointReader");
     }
 
     private void SelectVoxel()
@@ -46,14 +49,20 @@ public class HitPointReader : MonoBehaviour
         {
             if (ToolManager.Instance.Tmode == ToolManager.ToolMode.FaceStretch)
             {
+                Debug.Log("reader:FaceStretch");
+
+                finger = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform;
+                finger.localRotation = Quaternion.Euler(0, 90, 0);
                 //Physics.Raycast(new Ray(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position, HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.right), out hit);
-                Physics.Raycast(new Ray(hi5Laser.transform.position, hi5Laser.transform.forward), out hit);
+                Physics.Raycast(new Ray(finger.transform.position, finger.transform.forward), out hit);
 
                 if (hit.collider)
                 {
                     hitting = true;
                     hitPoint.position = hit.point; // / WorldDataManager.Instance.ActiveWorld.worldSize;
                     hitPoint.normal = hit.normal;
+                    Debug.Log("HitPointReader:" + hitPoint.position);
+
                 }
             }
             else

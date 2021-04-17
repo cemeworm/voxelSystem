@@ -90,7 +90,7 @@ public class FaceStretcher : MonoBehaviour
             if (inputState == 1)
             {
                 m_upCursorPoint = null;
-                m_downCursorPoint = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
+                m_downCursorPoint = vrcon.HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position;
                 Debug.Log("vrcon.pullFaceInput.stateDown");
             }
 
@@ -103,7 +103,7 @@ public class FaceStretcher : MonoBehaviour
                         (int)faceSelector.normal.Value.y,
                         (int)faceSelector.normal.Value.z);
 
-                    m_upCursorPoint = vrcon.HI5_Right_Human_Collider.GetThumbAndMiddlePoint();
+                    m_upCursorPoint = vrcon.HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position;
 
                     float result = Vector3.Dot(m_upCursorPoint.Value - m_downCursorPoint.Value, normal);
                     stretchResult = (int)(result * 50);

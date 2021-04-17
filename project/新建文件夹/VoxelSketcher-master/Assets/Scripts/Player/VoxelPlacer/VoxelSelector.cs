@@ -35,14 +35,7 @@ public class VoxelSelector : MonoBehaviour
             // 选中位置的信息存入一个Voxel对象
             Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position / WorldDataManager.Instance.ActiveWorld.worldSize);
             //Debug.Log(pos);
-            foreach (Vector3Int po in vp.targetObj.voxelObjectData.VoxelDataDict.Keys)
-            {
-                Debug.Log("vp:" + po);
-            }
-            foreach (Voxel po in vp.targetObj.voxelObjectData.VoxelDataDict.Values)
-            {
-                Debug.Log("vp:"+po.VoxelId );
-            }
+
             Voxel v = vp.targetObj.voxelObjectData.GetVoxelAt(pos - vp.targetObj.gridBasePoint);
 /*            Debug.Log(pos - vp.targetObj.gridBasePoint);*/
             // 如果此处没有voxel

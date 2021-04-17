@@ -60,7 +60,7 @@ public class FaceSelector : MonoBehaviour
         }
         else // VR mode
         {
-            if (inputState == 3)
+            if (inputState == 1)
             {
                 TriggerSelection();
             }
@@ -88,28 +88,6 @@ public class FaceSelector : MonoBehaviour
             faceStretcher.stretchedPoints.Clear(); // 为了可视化
         }
     }
-
-    /* private void Selecting()
-     {
-         HitPoint currentPoint = hitPointReader.hitPoint;
-         if (m_downPoint != null && hitPointReader.hitting)
-         {
-             //Must be same normal face
-             if (currentPoint.normal == m_downPoint.Value.normal &&
-                 Vector3.Dot(currentPoint.position - m_downPoint.Value.position, currentPoint.normal) == 0)
-             {
-                 m_upPoint = currentPoint;
-                 Vector3Int min, max;
-                 Vector3 down = m_downPoint.Value.position - m_downPoint.Value.normal / 2 * WorldDataManager.Instance.ActiveWorld.worldSize;
-                 Vector3 up = m_upPoint.Value.position - m_upPoint.Value.normal / 2 * WorldDataManager.Instance.ActiveWorld.worldSize;
-                 MathHelper.GetMinMaxPoint(down, up, out min, out max);
-
-                 UpdateSelectionPoints(min, max);
-                 //Debug.Log("min "+min);
-                 //Debug.Log("max "+max);
-             }
-         }
-     }*/
 
      private void Selecting()
      {

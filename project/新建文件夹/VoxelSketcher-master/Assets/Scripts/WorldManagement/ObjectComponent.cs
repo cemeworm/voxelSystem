@@ -34,6 +34,7 @@ public class ObjectComponent : MonoBehaviour
 
     public void UpdateObjectMesh()
     {
+        Debug.Log("UpdateObjectMesh start");
         Mesh mesh;
         Material[] mats;
         voxelObjectData.GenerateMeshAndMats(out mesh, out mats);

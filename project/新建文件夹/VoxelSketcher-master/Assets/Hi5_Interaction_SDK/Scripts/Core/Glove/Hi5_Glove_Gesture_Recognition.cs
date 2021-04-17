@@ -43,6 +43,20 @@ namespace Hi5_Interaction_Core
                 mHand.mVisibleHand.ChangeColor(Color.blue);
             }
 
+            else if (IsTwo())
+            {
+                mRecord.RecordGesture(Hi5_Glove_Gesture_Recognition_State.EFly);
+                mState = Hi5_Glove_Gesture_Recognition_State.EFly;
+                mHand.mVisibleHand.ChangeColor(Color.cyan);
+            }
+
+            else if (IsThree())
+            {
+                mRecord.RecordGesture(Hi5_Glove_Gesture_Recognition_State.EFly);
+                mState = Hi5_Glove_Gesture_Recognition_State.EFly;
+                mHand.mVisibleHand.ChangeColor(Color.gray);
+            }
+
             else if (IsHandPlane())
             {
                 mRecord.RecordGesture(Hi5_Glove_Gesture_Recognition_State.EHandPlane);
@@ -153,6 +167,26 @@ namespace Hi5_Interaction_Core
                 return false;
         }
 
+        internal bool IsTwo()
+        {
+            if (mHand != null && mHand.mState != null && mHand.mState.mJudgeMent != null)
+            {
+                return mHand.mState.mJudgeMent.IsTwo();
+            }
+            else
+                return false;
+        }
+
+        internal bool IsThree()
+        {
+            if (mHand != null && mHand.mState != null && mHand.mState.mJudgeMent != null)
+            {
+                return mHand.mState.mJudgeMent.IsThree();
+            }
+            else
+                return false;
+        }
+
         internal bool IsRecordFlyPinch()
 		{
 			return mRecord.IsHaveGesture (Hi5_Glove_Gesture_Recognition_State.EOk);
@@ -176,7 +210,9 @@ namespace Hi5_Interaction_Core
 		EFist,
         EIndexPoint,
 		EHandPlane,
-        EFly
+        EFly,
+        ETwo,
+        EThree
 	}
 
 	public class Hi5_Glove_Gesture_Recognition_Record

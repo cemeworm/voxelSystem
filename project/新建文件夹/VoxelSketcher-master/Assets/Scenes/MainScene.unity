@@ -1294,6 +1294,7 @@ GameObject:
   - component: {fileID: 194633176}
   - component: {fileID: 194633175}
   - component: {fileID: 194633174}
+  - component: {fileID: 194633177}
   m_Layer: 0
   m_Name: ButtonLoad
   m_TagString: Untagged
@@ -1337,6 +1338,7 @@ MonoBehaviour:
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
   HMDTransform: {fileID: 1993439531}
+  hi5Laser: {fileID: 0}
 --- !u!114 &194633175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1374,6 +1376,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 194633172}
   m_CullTransparentMesh: 0
+--- !u!65 &194633177
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 194633172}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &208512222
 GameObject:
   m_ObjectHideFlags: 0
@@ -1695,7 +1710,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u5BFC\u5165"
+  m_Text: "4.\u5BFC\u5165"
 --- !u!222 &253631895
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2052,6 +2067,7 @@ MonoBehaviour:
     normal: {x: 0, y: 0, z: 0}
   HI5_Left_Human_Collider: {fileID: 0}
   HI5_Right_Human_Collider: {fileID: 0}
+  finger: {fileID: 0}
 --- !u!4 &319063432
 Transform:
   m_ObjectHideFlags: 0
@@ -2364,7 +2380,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u53D6\u53CD"
+  m_Text: "3.\u53D6\u53CD"
 --- !u!222 &347942733
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2715,6 +2731,7 @@ GameObject:
   - component: {fileID: 417186473}
   - component: {fileID: 417186472}
   - component: {fileID: 417186471}
+  - component: {fileID: 417186474}
   m_Layer: 0
   m_Name: ButtonOr
   m_TagString: Untagged
@@ -2758,6 +2775,7 @@ MonoBehaviour:
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
   HMDTransform: {fileID: 1993439531}
+  hi5Laser: {fileID: 0}
 --- !u!114 &417186472
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2795,6 +2813,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 417186469}
   m_CullTransparentMesh: 0
+--- !u!65 &417186474
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417186469}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &436947798
 GameObject:
   m_ObjectHideFlags: 0
@@ -4019,7 +4050,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u4FDD\u5B58"
+  m_Text: "3.\u4FDD\u5B58"
 --- !u!222 &648062669
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5266,6 +5297,7 @@ MonoBehaviour:
   reference: {fileID: 0}
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
+  finger: {fileID: 0}
 --- !u!1 &802500793
 GameObject:
   m_ObjectHideFlags: 0
@@ -5278,6 +5310,7 @@ GameObject:
   - component: {fileID: 802500797}
   - component: {fileID: 802500796}
   - component: {fileID: 802500795}
+  - component: {fileID: 802500798}
   m_Layer: 0
   m_Name: ButtonNot
   m_TagString: Untagged
@@ -5321,6 +5354,7 @@ MonoBehaviour:
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
   HMDTransform: {fileID: 1993439531}
+  hi5Laser: {fileID: 0}
 --- !u!114 &802500796
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5358,6 +5392,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 802500793}
   m_CullTransparentMesh: 0
+--- !u!65 &802500798
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 802500793}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &823501849 stripped
 MeshRenderer:
   m_CorrespondingSourceObject: {fileID: 2336214, guid: 7a135b1a2cb9c8f488d4dd00c55ab283,
@@ -6099,6 +6146,7 @@ GameObject:
   - component: {fileID: 992825537}
   - component: {fileID: 992825535}
   - component: {fileID: 992825536}
+  - component: {fileID: 992825538}
   m_Layer: 0
   m_Name: ButtonCreate
   m_TagString: Untagged
@@ -6150,6 +6198,7 @@ MonoBehaviour:
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
   HMDTransform: {fileID: 1993439531}
+  hi5Laser: {fileID: 0}
 --- !u!222 &992825537
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -6158,6 +6207,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 992825534}
   m_CullTransparentMesh: 0
+--- !u!65 &992825538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 992825534}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!224 &992825539
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7187,6 +7249,7 @@ GameObject:
   - component: {fileID: 1222437560}
   - component: {fileID: 1222437559}
   - component: {fileID: 1222437558}
+  - component: {fileID: 1222437561}
   m_Layer: 0
   m_Name: ButtonAnd
   m_TagString: Untagged
@@ -7230,6 +7293,7 @@ MonoBehaviour:
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
   HMDTransform: {fileID: 1993439531}
+  hi5Laser: {fileID: 0}
 --- !u!114 &1222437559
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7267,6 +7331,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1222437556}
   m_CullTransparentMesh: 0
+--- !u!65 &1222437561
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1222437556}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1226623128
 GameObject:
   m_ObjectHideFlags: 0
@@ -7965,6 +8042,7 @@ GameObject:
   - component: {fileID: 1341789087}
   - component: {fileID: 1341789086}
   - component: {fileID: 1341789085}
+  - component: {fileID: 1341789088}
   m_Layer: 0
   m_Name: ButtonSave
   m_TagString: Untagged
@@ -8008,6 +8086,7 @@ MonoBehaviour:
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
   HMDTransform: {fileID: 1993439531}
+  hi5Laser: {fileID: 0}
 --- !u!114 &1341789086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8045,6 +8124,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1341789083}
   m_CullTransparentMesh: 0
+--- !u!65 &1341789088
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1341789083}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1346259188 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 114852731058483642, guid: d51f780e1fbb7c74a98d898b5608a167,
@@ -8722,7 +8814,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u5408\u5E76"
+  m_Text: "2.\u5408\u5E76"
 --- !u!222 &1479291730
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9813,7 +9905,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u5207\u6362"
+  m_Text: "2.\u5207\u6362"
 --- !u!222 &1810660652
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10575,7 +10667,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 1
+  index: 3
   origin: {fileID: 148529297}
 --- !u!135 &1993439528
 SphereCollider:
@@ -10663,6 +10755,7 @@ GameObject:
   - component: {fileID: 2006879578}
   - component: {fileID: 2006879577}
   - component: {fileID: 2006879576}
+  - component: {fileID: 2006879579}
   m_Layer: 0
   m_Name: ButtonSwitch
   m_TagString: Untagged
@@ -10706,6 +10799,7 @@ MonoBehaviour:
   HI5_Left_Human_Collider: {fileID: 148529299}
   HI5_Right_Human_Collider: {fileID: 780902042}
   HMDTransform: {fileID: 1993439531}
+  hi5Laser: {fileID: 0}
 --- !u!114 &2006879577
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10743,6 +10837,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2006879574}
   m_CullTransparentMesh: 0
+--- !u!65 &2006879579
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006879574}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2013582590
 GameObject:
   m_ObjectHideFlags: 0
@@ -11081,7 +11188,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u4EA4\u96C6"
+  m_Text: "1.\u4EA4\u96C6"
 --- !u!222 &2075925429
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11282,7 +11389,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u65B0\u5EFA"
+  m_Text: "1.\u65B0\u5EFA"
 --- !u!222 &2114165046
 CanvasRenderer:
   m_ObjectHideFlags: 0
