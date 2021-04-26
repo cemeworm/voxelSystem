@@ -17,11 +17,17 @@ public class ObjectManipulator : MonoBehaviour
     public WorldOptions wOptions;
     public List<Vector3Int> creatingObjectBuffer;
     public int copyObjectInputState;
+    public HelpOptions helpOptions;
 
     // 移动物体
     private Vector3 moveStartLocHand;
     private Vector3Int moveStartLocObj;
 
+    void Awake()
+    {
+        Debug.Log("Awake:manipulator");
+        helpOptions = GameObject.Find("HelpMenu").GetComponent<HelpOptions>();
+    }
     private void Start()
     {
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
@@ -123,11 +129,18 @@ public class ObjectManipulator : MonoBehaviour
                 }
 
             }
+            
             if (vrcon.worldMenuInput() == 1) // 启动world切换
             {
                 // 根据菜单选择操作
                 wOptions.gameObject.SetActive(true);
 
+            }
+            
+            if(vrcon.helpImageInput() == 1)
+            {
+                Debug.Log("vrcon.helpImageInput");
+                helpOptions.gameObject.SetActive(true);
             }
 
         }

@@ -18,6 +18,7 @@ namespace Hi5_Interaction_Core
         public Color clickColor = Color.green;
         public GameObject holder;
         public GameObject pointer;
+        public GameObject Fire;
         bool isActive = false;
         public bool addRigidBody = false;
         public Transform reference;
@@ -85,8 +86,11 @@ namespace Hi5_Interaction_Core
             Debug.Log("enAbled");
             holder = new GameObject();
             finger = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform;
-            finger.localRotation = Quaternion.Euler(0, 90, 0);
-            holder.transform.parent = finger;
+            finger.localRotation = Quaternion.Euler(0,90,0);
+/*            Fire = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            Fire.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            Fire.transform.parent = finger.transform;*/
+            holder.transform.parent = finger.transform;
             holder.transform.localPosition = Vector3.zero;
             holder.transform.localRotation = Quaternion.identity;
 

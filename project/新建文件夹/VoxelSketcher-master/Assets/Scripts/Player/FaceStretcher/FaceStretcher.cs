@@ -13,7 +13,8 @@ public class FaceStretcher : MonoBehaviour
     public int stretchResult;
     private Vector3? m_downCursorPoint;
     private Vector3? m_upCursorPoint;
-    private int inputState;
+    private int pullInputState;
+
 
     public List<Vector3Int> stretchedPoints;
 
@@ -31,7 +32,7 @@ public class FaceStretcher : MonoBehaviour
 
     private void Update()
     {
-        inputState = vrcon.pullFaceInput();
+        pullInputState = vrcon.pullFaceInput();
         ComputeStretching(ToolManager.Instance.Imode);
 
         //Apply
@@ -44,9 +45,13 @@ public class FaceStretcher : MonoBehaviour
         }
         else
         {
-            if (inputState == 3 && faceSelector.normal != null)
+            if (pullInputState == 3 && faceSelector.normal != null)
             {
                 ApplyStretching();
+            }
+            else if (vrcon.deleteFaceInput() == 1 && faceSelector.normal != null)
+            {
+                DeleteFace();
             }
         }
 
@@ -87,14 +92,14 @@ public class FaceStretcher : MonoBehaviour
         }
         else // VR mode
         {
-            if (inputState == 1)
+            if (pullInputState == 1)
             {
                 m_upCursorPoint = null;
                 m_downCursorPoint = vrcon.HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position;
                 Debug.Log("vrcon.pullFaceInput.stateDown");
             }
 
-            if (inputState == 2)
+            if (pullInputState == 2)
             {
                 if (m_downCursorPoint != null && selectionIndicator.data.Count > 0 && faceSelector.normal != null)
                 {
@@ -173,20 +178,27 @@ public class FaceStretcher : MonoBehaviour
             this.targetObj.UpdateObjectMesh();
 
         }
-        //Substract
-        else
-        {
-            foreach (var p in faceSelector.selectionPoints)
-            {
-                for (int i = stretchResult; i <= 0; i++)
-                {
-                    //Delete voxel
-                    this.targetObj.voxelObjectData.DeleteVoxelAt(p + normal * i);
-                }
-            }
-            this.targetObj.UpdateObjectMesh();
-        }
 
+        faceSelector.selectionPoints.Clear();
+        stretchedPoints.Clear();
+        stretchResult = 0;
+    }
+
+    private void DeleteFace()
+    {
+            var normal = new Vector3Int(
+        (int)faceSelector.normal.Value.x,
+        (int)faceSelector.normal.Value.y,
+        (int)faceSelector.normal.Value.z);
+        foreach (var p in faceSelector.selectionPoints)
+        {
+            for (int i = stretchResult; i <= 0; i++)
+            {
+                //Delete voxel
+                this.targetObj.voxelObjectData.DeleteVoxelAt(p + normal * i);
+            }
+        }
+        this.targetObj.UpdateObjectMesh();
         faceSelector.selectionPoints.Clear();
         stretchedPoints.Clear();
         stretchResult = 0;

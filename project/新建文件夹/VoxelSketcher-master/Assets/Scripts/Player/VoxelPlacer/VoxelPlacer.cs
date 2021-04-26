@@ -109,7 +109,7 @@ public class VoxelPlacer : MonoBehaviour
         else // VR mode
         {
             // 创建新的voxel
-            if (vrcon.createVoxelInput() == 1)
+            if (vrcon.createVoxelInput() == 1 || vrcon.createVoxelInput() == 2)
             {
                 // 选中位置的信息存入一个Voxel对象
                 Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position / WorldDataManager.Instance.ActiveWorld.worldSize);
@@ -124,7 +124,7 @@ public class VoxelPlacer : MonoBehaviour
                 }
             }
             // 如果有voxel，则根据按键删除voxel
-            if (vrcon.deleteVoxelInput() == 1) 
+            if (vrcon.deleteVoxelInput() == 1 || vrcon.deleteVoxelInput() == 2) 
             {
                 Debug.Log("Delete");
                 // 选中位置的信息存入一个Voxel对象
