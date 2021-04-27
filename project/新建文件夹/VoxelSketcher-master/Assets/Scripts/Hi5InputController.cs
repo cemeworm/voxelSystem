@@ -27,6 +27,11 @@ namespace Hi5_Interaction_Core
         public WorldOptions worldOptions;
         public MergeOptions mergeOptions;
         public HelpOptions helpOptions;
+        public GameObject userGuide;
+        public GameObject objectMode;
+        public GameObject voxelMode;
+        public GameObject faceMode;
+        public GameObject systemHandle;
         public ObjectManipulator objectManipulator;
         public int nowAcitonIndex = 0;
         public int lastAcitonIndex = 0;
@@ -509,8 +514,6 @@ namespace Hi5_Interaction_Core
             Debug.Log("Start:inputController");
             hi5_object_judgeMent_1 = new Hi5_Object_JudgeMent();
             hi5_object_judgeMent_2 = new Hi5_Object_JudgeMent();
-            Debug.Log("111");
-
             HI5_Left_Human_Collider = GameObject.Find("HI5_Left_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
             HI5_Right_Human_Collider = GameObject.Find("HI5_Right_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
             hi5_Glove_Interaction_State_1 = null;
@@ -521,7 +524,6 @@ namespace Hi5_Interaction_Core
             hi5_object_judgeMent_2.Hand = HI5_Right_Human_Collider;
             World_Menu_Button = GameObject.Find("World_Menu_Button").GetComponent<Hi5Button>();
             Switch_Mode_Button = GameObject.Find("Switch_Mode_Button").GetComponent<Hi5Button>();
-            Debug.Log("333");
             Switch_Mode_Button = GameObject.Find("Switch_Mode_Button").GetComponent<Hi5Button>();
             ButtonCreate = GameObject.Find("ButtonCreate").GetComponent<Hi5ButtonRect>();
             ButtonSwitch = GameObject.Find("ButtonSwitch").GetComponent<Hi5ButtonRect>();
@@ -530,12 +532,20 @@ namespace Hi5_Interaction_Core
             ButtonAnd = GameObject.Find("ButtonAnd").GetComponent<Hi5ButtonRect>();
             ButtonOr = GameObject.Find("ButtonOr").GetComponent<Hi5ButtonRect>();
             ButtonNot = GameObject.Find("ButtonNot").GetComponent<Hi5ButtonRect>();
-            Debug.Log("222");
             mergeOptions = GameObject.Find("MergeMenu").GetComponent<MergeOptions>();
             worldOptions = GameObject.Find("WorldMenu").GetComponent<WorldOptions>();
             helpOptions = GameObject.Find("HelpMenu").GetComponent<HelpOptions>();
-            Debug.Log("333");
             objectManipulator = GameObject.Find("ObjectManipulator").GetComponent<ObjectManipulator>();
+            userGuide = GameObject.Find("UserGuide");
+            objectMode = GameObject.Find("ObjectMode");
+            voxelMode = GameObject.Find("VoxelMode");
+            faceMode = GameObject.Find("FaceMode");
+            systemHandle = GameObject.Find("SystemHandle");
+            userGuide.SetActive(false);
+            objectMode.SetActive(false);
+            voxelMode.SetActive(false);
+            faceMode.SetActive(false);
+            systemHandle.SetActive(false);
             mergeOptions.gameObject.SetActive(false);
             worldOptions.gameObject.SetActive(false);
             helpOptions.gameObject.SetActive(false);
@@ -608,6 +618,22 @@ namespace Hi5_Interaction_Core
             }
             else if(helpOptions.gameObject.activeSelf)
             {
+                if(hi5_object_judgeMent_1.IsHandIndexPoint() && objectMode.activeSelf is false)
+                {
+                    helpOptions.turnToObject();
+                }
+                if (hi5_object_judgeMent_1.IsTwo() && voxelMode.activeSelf is false)
+                {
+                    helpOptions.turnToVoxel();
+                }
+                if (hi5_object_judgeMent_1.IsThree() && faceMode.activeSelf is false)
+                {
+                    helpOptions.turnToFace();
+                }
+                if (hi5_object_judgeMent_1.IsFingerPlane() && systemHandle.activeSelf is false)
+                {
+                    helpOptions.turnToSystem();
+                }
                 if (hi5_object_judgeMent_1.IsHandFist())
                 {
                     helpOptions.closeHelpMenu();

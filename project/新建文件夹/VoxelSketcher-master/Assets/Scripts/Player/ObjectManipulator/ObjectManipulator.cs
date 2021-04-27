@@ -18,6 +18,7 @@ public class ObjectManipulator : MonoBehaviour
     public List<Vector3Int> creatingObjectBuffer;
     public int copyObjectInputState;
     public HelpOptions helpOptions;
+    public GameObject userGuide;
 
     // 移动物体
     private Vector3 moveStartLocHand;
@@ -27,6 +28,7 @@ public class ObjectManipulator : MonoBehaviour
     {
         Debug.Log("Awake:manipulator");
         helpOptions = GameObject.Find("HelpMenu").GetComponent<HelpOptions>();
+        userGuide = GameObject.Find("UserGuide");
     }
     private void Start()
     {
@@ -141,6 +143,7 @@ public class ObjectManipulator : MonoBehaviour
             {
                 Debug.Log("vrcon.helpImageInput");
                 helpOptions.gameObject.SetActive(true);
+                userGuide.SetActive(true);
             }
 
         }
