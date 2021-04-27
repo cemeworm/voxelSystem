@@ -82,24 +82,39 @@ public class ToolManager : Singleton<ToolManager>
         {
             if (vrcon.switchModeInput() == 1)
             {
-                if (Tmode == ToolMode.ObjectManipulation && objectManipulator.objectSelector.selectedObjects.Count > 0)
+                if (Tmode == ToolMode.ObjectManipulation)
                 {
                     Tmode = ToolMode.PlaceVoxel;
+                    if (objectManipulator.objectSelector.selectedObjects.Count > 0)
+                    {
+                        for(int i = objectManipulator.objectSelector.selectedObjects.Count-1; i>= 0; i--)
+                        {
+                            ObjectComponent deleobject = objectManipulator.objectSelector.selectedObjects[i];
+                            ToolManager.unHighlightObject(deleobject.gameObject);
+                            objectManipulator.objectSelector.selectedObjects.Remove(deleobject);
+                        }
+                    }
                     ToolModeSwitching();
                 }
                 else if (Tmode == ToolMode.PlaceVoxel)
                 {
                     Tmode = ToolMode.FaceStretch;
+                    if (!(voxelPlacer.voxelTargetObj is null))
+                    {
+                        ToolManager.unHighlightObject(voxelPlacer.voxelTargetObj.gameObject);
+                        voxelPlacer.voxelTargetObj = null;
+                    }
                     ToolModeSwitching();
-                    voxelPlacer.targetObj.gameObject.GetComponent<Outline>().enabled = false;
-                    voxelPlacer.targetObj.gameObject.GetComponent<Outline>().enabled = true;
                 }
                 else if (Tmode == ToolMode.FaceStretch)
                 {
                     Tmode = ToolMode.ObjectManipulation;
+                    if(!(faceStretcher.faceTargetObj is null))
+                    {
+                        ToolManager.unHighlightObject(faceStretcher.faceTargetObj.gameObject);
+                        faceStretcher.faceTargetObj = null;
+                    }
                     ToolModeSwitching();
-                    faceStretcher.targetObj.gameObject.GetComponent<Outline>().enabled = false;
-                    faceStretcher.targetObj.gameObject.GetComponent<Outline>().enabled = true;
                 }
                 Debug.Log("Current Mode: "+Tmode);
             }
@@ -112,23 +127,23 @@ public class ToolManager : Singleton<ToolManager>
         {
             case ToolMode.ObjectManipulation:
                 objectManipulator.gameObject.SetActive(true);
-                Switch_Mode_Button_Text.text = "object";
+                Switch_Mode_Button_Text.text = "Mode:Object";
                 voxelPlacer.gameObject.SetActive(false);
                 faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(false);
                 faceStretcher.gameObject.SetActive(false);
                 break;
             case ToolMode.PlaceVoxel:
                 voxelPlacer.gameObject.SetActive(true);
-                voxelPlacer.SetTargetObj();
-                Switch_Mode_Button_Text.text = "voxel";
+                //voxelPlacer.SetTargetObj();
+                Switch_Mode_Button_Text.text = "Mode:Voxel";
                 objectManipulator.gameObject.SetActive(false);
                 faceStretcher.gameObject.SetActive(false);
                 break;
             case ToolMode.FaceStretch:
                 faceStretcher.gameObject.SetActive(true);
-                Switch_Mode_Button_Text.text = "face";
+                Switch_Mode_Button_Text.text = "Mode:Face";
                 faceStretcher.faceSelector.hitPointReader.ToggleVRPointer(true);
-                faceStretcher.targetObj = voxelPlacer.targetObj;
+                //faceStretcher.targetObj = voxelPlacer.targetObj;
                 voxelPlacer.gameObject.SetActive(false);
                 objectManipulator.gameObject.SetActive(false);
                 break;

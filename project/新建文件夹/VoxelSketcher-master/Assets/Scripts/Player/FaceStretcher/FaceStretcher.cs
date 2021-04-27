@@ -6,7 +6,7 @@ using Hi5_Interaction_Core;
 public class FaceStretcher : MonoBehaviour
 {
     // 当前正在被修改的Object
-    public ObjectComponent targetObj;
+    public ObjectComponent faceTargetObj;
 
     public FaceSelector faceSelector;
     public FaceIndicator selectionIndicator;
@@ -14,7 +14,10 @@ public class FaceStretcher : MonoBehaviour
     private Vector3? m_downCursorPoint;
     private Vector3? m_upCursorPoint;
     private int pullInputState;
-
+    public HelpOptions helpOptions;
+    public GameObject userGuide;
+    public MergeOptions mOptions;
+    public WorldOptions wOptions;
 
     public List<Vector3Int> stretchedPoints;
 
@@ -28,6 +31,9 @@ public class FaceStretcher : MonoBehaviour
         m_downCursorPoint = null;
         m_upCursorPoint = null;
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
+        helpOptions = GameObject.Find("HelpMenu").GetComponent<HelpOptions>();
+        userGuide = GameObject.Find("UserGuide");
+        wOptions = GameObject.Find("WorldMenu").GetComponent<WorldOptions>();
     }
 
     private void Update()
@@ -45,17 +51,32 @@ public class FaceStretcher : MonoBehaviour
         }
         else
         {
-            if (pullInputState == 3 && faceSelector.normal != null)
+            if (!(faceTargetObj == null))
             {
-                ApplyStretching();
-            }
-            else if (vrcon.deleteFaceInput() == 1 && faceSelector.normal != null)
-            {
-                DeleteFace();
+                if (pullInputState == 3 && faceSelector.normal != null)
+                {
+                    ApplyStretching();
+                }
+                else if (vrcon.deleteFaceInput() == 1 && faceSelector.normal != null)
+                {
+                    DeleteFace();
+                }
             }
         }
+        if (vrcon.worldMenuInput() == 1) // 启动world切换
+        {
+            // 根据菜单选择操作
+            wOptions.gameObject.SetActive(true);
 
+        }
 
+        if (vrcon.helpImageInput() == 1)
+        {
+            Debug.Log("vrcon.helpImageInput");
+            helpOptions.gameObject.SetActive(true);
+            userGuide.SetActive(true);
+        }
+        vrcon.WorldChange();
     }
 
     private void ComputeStretching(ToolManager.InteractionMode mode)
@@ -169,13 +190,13 @@ public class FaceStretcher : MonoBehaviour
         {
             foreach (var p in faceSelector.selectionPoints)
             {
-                Voxel v = this.targetObj.voxelObjectData.GetVoxelAt(p);
+                Voxel v = this.faceTargetObj.voxelObjectData.GetVoxelAt(p);
                 for (int i = 1; i <= stretchResult; i++)
                 {
-                    this.targetObj.voxelObjectData.SetVoxelAt(p + normal * i, v);
+                    this.faceTargetObj.voxelObjectData.SetVoxelAt(p + normal * i, v);
                 }
             }
-            this.targetObj.UpdateObjectMesh();
+            this.faceTargetObj.UpdateObjectMesh();
 
         }
 
@@ -195,10 +216,10 @@ public class FaceStretcher : MonoBehaviour
             for (int i = stretchResult; i <= 0; i++)
             {
                 //Delete voxel
-                this.targetObj.voxelObjectData.DeleteVoxelAt(p + normal * i);
+                this.faceTargetObj.voxelObjectData.DeleteVoxelAt(p + normal * i);
             }
         }
-        this.targetObj.UpdateObjectMesh();
+        this.faceTargetObj.UpdateObjectMesh();
         faceSelector.selectionPoints.Clear();
         stretchedPoints.Clear();
         stretchResult = 0;

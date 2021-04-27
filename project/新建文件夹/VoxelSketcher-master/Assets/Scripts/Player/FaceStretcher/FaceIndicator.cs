@@ -25,7 +25,7 @@ public class FaceIndicator : MonoBehaviour
         
         foreach (var v in faceStretcher.stretchedPoints)
         {
-            Vector3Int p = v + faceStretcher.targetObj.gridBasePoint;
+            Vector3Int p = v + faceStretcher.faceTargetObj.gridBasePoint;
 
             //Do not need repeated points
             if (!data.Contains(p))

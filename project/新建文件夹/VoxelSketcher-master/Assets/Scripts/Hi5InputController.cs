@@ -272,7 +272,7 @@ namespace Hi5_Interaction_Core
         public int selectVoxelInput()
         {
             int state = 0;
-                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsHandIndexPoint())
             {
                 nowAcitonIndex = 9;
                 if (nowAcitonIndex != lastAcitonIndex && selectVoxelInput_stateMonitor == 0)
@@ -298,7 +298,7 @@ namespace Hi5_Interaction_Core
         public int selectFaceInput()
         {
             int state = 0;
-                if (hi5_object_judgeMent_1.IsHandIndexPoint() && hi5_object_judgeMent_2.IsHandIndexPoint())
+                if (hi5_object_judgeMent_1.IsFingerPlane() && hi5_object_judgeMent_2.IsHandIndexPoint())
             {
                 nowAcitonIndex = 14;
                 if (nowAcitonIndex != lastAcitonIndex && selectFaceInput_stateMonitor == 0)

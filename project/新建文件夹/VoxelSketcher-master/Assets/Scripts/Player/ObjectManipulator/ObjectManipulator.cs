@@ -13,12 +13,12 @@ public class ObjectManipulator : MonoBehaviour
 
     // VR
     private Hi5InputController vrcon;
-    public MergeOptions mOptions;
-    public WorldOptions wOptions;
     public List<Vector3Int> creatingObjectBuffer;
     public int copyObjectInputState;
     public HelpOptions helpOptions;
     public GameObject userGuide;
+    public MergeOptions mOptions;
+    public WorldOptions wOptions;
 
     // 移动物体
     private Vector3 moveStartLocHand;
@@ -116,22 +116,18 @@ public class ObjectManipulator : MonoBehaviour
                     
                 }
             }
-            else
+
+            if (vrcon.createObjectInput() == 3)
+            {
+                    CreateNewObject();
+            }
+                // 启动创建新Object
+            if (vrcon.createObjectInput() == 2)
             {
 
-                if (vrcon.createObjectInput() == 3)
-                {
-                    CreateNewObject();
-                }
-                // 启动创建新Object
-                if (vrcon.createObjectInput() == 2)
-                {
-
                     CreatingNewObject();
-                }
-
             }
-            
+
             if (vrcon.worldMenuInput() == 1) // 启动world切换
             {
                 // 根据菜单选择操作

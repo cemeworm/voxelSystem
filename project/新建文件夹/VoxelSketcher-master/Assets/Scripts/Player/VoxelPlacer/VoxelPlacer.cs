@@ -15,14 +15,26 @@ public class VoxelPlacer : MonoBehaviour
     public Hi5_Glove_Interaction_Hand HI5_Left_Human_Collider;
     public Hi5_Glove_Interaction_Hand HI5_Right_Human_Collider;
     Vector3 moveStartLocHand;
+    public HelpOptions helpOptions;
+    public GameObject userGuide;
+    public MergeOptions mOptions;
+    public WorldOptions wOptions;
 
     // 当前正在被修改的Object
-    public ObjectComponent targetObj;
+    public ObjectComponent voxelTargetObj;
 
 
     public Voxel voxelArg;
 
     // Start is called before the first frame update
+
+    private void Awake()
+    {
+        helpOptions = GameObject.Find("HelpMenu").GetComponent<HelpOptions>();
+        userGuide = GameObject.Find("UserGuide");
+        wOptions = GameObject.Find("WorldMenu").GetComponent<WorldOptions>();
+
+    }
     private void Start()
     {
         //Setup voxel arg
@@ -39,6 +51,7 @@ public class VoxelPlacer : MonoBehaviour
     void Update()
     {
         ProcessInput(ToolManager.Instance.Imode);
+        vrcon.WorldChange();
     }
 
     private void ProcessInput(ToolManager.InteractionMode mode)
@@ -108,42 +121,90 @@ public class VoxelPlacer : MonoBehaviour
         }
         else // VR mode
         {
-            // 创建新的voxel
-            if (vrcon.createVoxelInput() == 1 || vrcon.createVoxelInput() == 2)
+            if(vrcon.selectObjectInput() == 1)
             {
-                // 选中位置的信息存入一个Voxel对象
-                Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position / WorldDataManager.Instance.ActiveWorld.worldSize);
-                Debug.Log("voxelcreate_finger:"+pos);
-                Debug.Log("gridBasePoint:" + this.targetObj.gridBasePoint);
-                Voxel v = this.targetObj.voxelObjectData.GetVoxelAt(pos - this.targetObj.gridBasePoint);
-                // 如果此处没有voxel，进一步判断是否与已有voxel相连，如果相连，则处理按键的事件
-                if (v.voxel == null && this.targetObj.IsNearVoxel(pos))
+                ObjectComponent os = WorldDataManager.Instance.ActiveWorld.GetOneObjectAt(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position);
+                if (!(os == null))
                 {
-                    WorldDataManager.Instance.ActiveWorld.SetVoxelAt(this.targetObj, pos, voxelArg);
-                    this.targetObj.UpdateObjectMesh();
+                    if (voxelTargetObj != os)
+                    {
+                        if (!(voxelTargetObj == null))
+                        {
+                            ToolManager.unHighlightObject(voxelTargetObj.gameObject);
+                        }
+                        voxelTargetObj = os;
+                        ToolManager.highlightObject(voxelTargetObj.gameObject, Color.yellow, 5f);
+                    }
+                    else
+                    {
+                        if (!(voxelTargetObj == null))
+                        {
+                            ToolManager.unHighlightObject(voxelTargetObj.gameObject);
+                        }
+                        voxelTargetObj = null;
+                    }
+                }
+                else
+                {
+                    if (!(voxelTargetObj == null))
+                    {
+                        ToolManager.unHighlightObject(voxelTargetObj.gameObject);
+                    }
+                    voxelTargetObj = null;
                 }
             }
-            // 如果有voxel，则根据按键删除voxel
-            if (vrcon.deleteVoxelInput() == 1 || vrcon.deleteVoxelInput() == 2) 
+            // 创建新的voxel
+            if (!(voxelTargetObj == null))
             {
-                Debug.Log("Delete");
-                // 选中位置的信息存入一个Voxel对象
-                Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position / WorldDataManager.Instance.ActiveWorld.worldSize);
-                Voxel v = this.targetObj.voxelObjectData.GetVoxelAt(pos - this.targetObj.gridBasePoint);
-                if (v.voxel != null)
+                if (vrcon.createVoxelInput() == 1 || vrcon.createVoxelInput() == 2)
                 {
-                    Debug.Log("Delete"+v.voxel.name);
-                    WorldDataManager.Instance.ActiveWorld.DeleteVoxelAt(this.targetObj, pos);
-                    if (this.targetObj.voxelObjectData.VoxelDataDict.Count == 0)
-                        WorldDataManager.Instance.ActiveWorld.DeleteObject(this.targetObj);
-                    this.targetObj.UpdateObjectMesh();
+                    // 选中位置的信息存入一个Voxel对象
+                    Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position / WorldDataManager.Instance.ActiveWorld.worldSize);
+                    Debug.Log("voxelcreate_finger:" + pos);
+                    Debug.Log("gridBasePoint:" + this.voxelTargetObj.gridBasePoint);
+                    Voxel v = this.voxelTargetObj.voxelObjectData.GetVoxelAt(pos - this.voxelTargetObj.gridBasePoint);
+                    // 如果此处没有voxel，进一步判断是否与已有voxel相连，如果相连，则处理按键的事件
+                    if (v.voxel == null && this.voxelTargetObj.IsNearVoxel(pos))
+                    {
+                        WorldDataManager.Instance.ActiveWorld.SetVoxelAt(this.voxelTargetObj, pos, voxelArg);
+                        this.voxelTargetObj.UpdateObjectMesh();
+                    }
                 }
+                // 如果有voxel，则根据按键删除voxel
+                if (vrcon.deleteVoxelInput() == 1 || vrcon.deleteVoxelInput() == 2)
+                {
+                    Debug.Log("Delete");
+                    // 选中位置的信息存入一个Voxel对象
+                    Vector3Int pos = MathHelper.WorldPosToWorldIntPos(HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position / WorldDataManager.Instance.ActiveWorld.worldSize);
+                    Voxel v = this.voxelTargetObj.voxelObjectData.GetVoxelAt(pos - this.voxelTargetObj.gridBasePoint);
+                    if (v.voxel != null)
+                    {
+                        Debug.Log("Delete" + v.voxel.name);
+                        WorldDataManager.Instance.ActiveWorld.DeleteVoxelAt(this.voxelTargetObj, pos);
+                        if (this.voxelTargetObj.voxelObjectData.VoxelDataDict.Count == 0)
+                            WorldDataManager.Instance.ActiveWorld.DeleteObject(this.voxelTargetObj);
+                        this.voxelTargetObj.UpdateObjectMesh();
+                    }
+                }
+            }
+            if (vrcon.worldMenuInput() == 1) // 启动world切换
+            {
+                // 根据菜单选择操作
+                wOptions.gameObject.SetActive(true);
+
+            }
+
+            if (vrcon.helpImageInput() == 1)
+            {
+                Debug.Log("vrcon.helpImageInput");
+                helpOptions.gameObject.SetActive(true);
+                userGuide.SetActive(true);
             }
         }
     }
 
     public void SetTargetObj()
     {
-        this.targetObj = this.objectSelector.GetSelectedObject();
+        this.voxelTargetObj = this.objectSelector.GetSelectedObject();
     }
 }

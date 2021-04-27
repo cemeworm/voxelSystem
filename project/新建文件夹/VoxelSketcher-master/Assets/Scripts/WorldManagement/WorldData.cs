@@ -298,6 +298,21 @@ public class WorldData
         }
         return result.ToArray();
     }
+
+    public ObjectComponent GetOneObjectAt(Vector3 worldPos)
+    {
+        ObjectComponent result = new ObjectComponent();
+        foreach (var o in ObjectList)
+        {
+            Vector3Int intPos = MathHelper.WorldPosToWorldIntPos(worldPos / WorldDataManager.Instance.ActiveWorld.worldSize);
+            //local position
+            if (o.voxelObjectData.GetVoxelAt(intPos - o.gridBasePoint).voxel != null)
+            {
+                result = o;
+            }
+        }
+        return result;
+    }
     //Get the next object in the list, back to start if ended
     public ObjectComponent GetNextObject(ObjectComponent o)
     {

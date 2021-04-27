@@ -60,13 +60,48 @@ public class FaceSelector : MonoBehaviour
         }
         else // VR mode
         {
-            if (inputState == 1)
+            if (vrcon.selectObjectInput() == 1)
             {
-                TriggerSelection();
+                ObjectComponent os = WorldDataManager.Instance.ActiveWorld.GetOneObjectAt(vrcon.HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position);
+                if (!(os == null))
+                {
+                    if (faceStretcher.faceTargetObj != os)
+                    {
+                        if (!(faceStretcher.faceTargetObj == null))
+                        {
+                            ToolManager.unHighlightObject(faceStretcher.faceTargetObj.gameObject);
+                        }
+                        faceStretcher.faceTargetObj = os;
+                        ToolManager.highlightObject(faceStretcher.faceTargetObj.gameObject, Color.yellow, 5f);
+                    }
+                    else
+                    {
+                        if (!(faceStretcher.faceTargetObj == null))
+                        {
+                            ToolManager.unHighlightObject(faceStretcher.faceTargetObj.gameObject);
+                        }
+                        faceStretcher.faceTargetObj = null;
+                    }
+                }
+                else
+                {
+                    if (!(faceStretcher.faceTargetObj == null))
+                    {
+                        ToolManager.unHighlightObject(faceStretcher.faceTargetObj.gameObject);
+                    }
+                    faceStretcher.faceTargetObj = null;
+                }
             }
-            if (inputState == 2)
+            if (!(faceStretcher.faceTargetObj == null))
             {
-                Selecting();
+                if (inputState == 1)
+                {
+                    TriggerSelection();
+                }
+                if (inputState == 2)
+                {
+                    Selecting();
+                }
             }
         }
     }
@@ -124,15 +159,15 @@ public class FaceSelector : MonoBehaviour
         List<Vector3Int> grid = MathHelper.GenerateGridFromDiagnal(min, max);
         foreach (var p in grid)
         {
-            Vector3Int pos = p - this.faceStretcher.targetObj.gridBasePoint;
+            Vector3Int pos = p - this.faceStretcher.faceTargetObj.gridBasePoint;
             //Debug.Log("pos " + pos);
-            Voxel v = this.faceStretcher.targetObj.voxelObjectData.GetVoxelAt(pos);
+            Voxel v = this.faceStretcher.faceTargetObj.voxelObjectData.GetVoxelAt(pos);
             if ( v.voxel!= null)
             {
                 //Debug.Log("hhhhhhhhhhhhhhhhhhhhhh " + v.voxel.posOffset);
                 selectionPoints.Add(pos);
                 faceStretcher.stretchedPoints.Add(pos); // 为了可视化
-                v.color = Color.yellow;
+                v.color = Color.blue;
             }
         }
     }
