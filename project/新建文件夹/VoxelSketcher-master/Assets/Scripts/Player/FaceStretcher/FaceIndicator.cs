@@ -22,19 +22,18 @@ public class FaceIndicator : MonoBehaviour
     private void Update()
     {
         data.Clear();
-        
-        foreach (var v in faceStretcher.stretchedPoints)
-        {
-            Vector3Int p = v + faceStretcher.faceTargetObj.gridBasePoint;
-
-            //Do not need repeated points
-            if (!data.Contains(p))
+            foreach (var v in faceStretcher.stretchedPoints)
             {
-                data.Add(p);
+                Vector3Int p = v + faceStretcher.faceTargetObj.gridBasePoint;
+
+                //Do not need repeated points
+                if (!data.Contains(p))
+                {
+                    data.Add(p);
+                }
             }
-        }
-        
-        m_meshFilter.sharedMesh = GenerateMesh();
+
+            m_meshFilter.sharedMesh = GenerateMesh();
     }
 
     private Mesh GenerateMesh()

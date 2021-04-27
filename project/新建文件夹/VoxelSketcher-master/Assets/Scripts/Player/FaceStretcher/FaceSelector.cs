@@ -70,6 +70,7 @@ public class FaceSelector : MonoBehaviour
                         if (!(faceStretcher.faceTargetObj == null))
                         {
                             ToolManager.unHighlightObject(faceStretcher.faceTargetObj.gameObject);
+                            EscSelection();
                         }
                         faceStretcher.faceTargetObj = os;
                         ToolManager.highlightObject(faceStretcher.faceTargetObj.gameObject, Color.yellow, 5f);
@@ -79,6 +80,7 @@ public class FaceSelector : MonoBehaviour
                         if (!(faceStretcher.faceTargetObj == null))
                         {
                             ToolManager.unHighlightObject(faceStretcher.faceTargetObj.gameObject);
+                            EscSelection();
                         }
                         faceStretcher.faceTargetObj = null;
                     }
@@ -88,6 +90,7 @@ public class FaceSelector : MonoBehaviour
                     if (!(faceStretcher.faceTargetObj == null))
                     {
                         ToolManager.unHighlightObject(faceStretcher.faceTargetObj.gameObject);
+                        EscSelection();
                     }
                     faceStretcher.faceTargetObj = null;
                 }
@@ -101,6 +104,11 @@ public class FaceSelector : MonoBehaviour
                 if (inputState == 2)
                 {
                     Selecting();
+                }
+                if(vrcon.LeftHandFist() == 1)
+                {
+                    Debug.Log("LeftHandFist");
+                    EscSelection();
                 }
             }
         }
@@ -169,6 +177,28 @@ public class FaceSelector : MonoBehaviour
                 faceStretcher.stretchedPoints.Add(pos); // 为了可视化
                 v.color = Color.blue;
             }
+        }
+    }
+
+    private void EscSelection()
+    {
+        if (selectionPoints.Count > 0)
+        {
+            Debug.Log("selectionPoints.Count:" + selectionPoints.Count);
+            for (int i = selectionPoints.Count - 1; i >= 0; i--)
+            {
+                Vector3Int deleVec = selectionPoints[i];
+                Debug.Log("deleVec:" + deleVec);
+                Voxel v = faceStretcher.faceTargetObj.voxelObjectData.GetVoxelAt(deleVec);
+                Debug.Log("former_v.color:" + v.color);
+                v.color = Color.white;
+                Debug.Log("latter_v.color:" + v.color);
+                Debug.Log("white_color:" + Color.white);
+
+
+            }
+            faceStretcher.faceSelector.selectionPoints.Clear();
+            faceStretcher.stretchedPoints.Clear();
         }
     }
 }

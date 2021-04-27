@@ -505,6 +505,16 @@ namespace Hi5_Interaction_Core
             return state;
         }
 
+        public int LeftHandFist()
+        {
+            int state = 0;
+            if(hi5_object_judgeMent_1.IsHandFist())
+            {
+                state = 1;
+            }
+            return state;
+        }
+
         private void Awake()
         {
         }

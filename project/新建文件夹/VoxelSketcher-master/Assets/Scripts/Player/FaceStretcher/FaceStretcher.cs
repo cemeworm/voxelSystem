@@ -197,7 +197,6 @@ public class FaceStretcher : MonoBehaviour
                 }
             }
             this.faceTargetObj.UpdateObjectMesh();
-
         }
 
         faceSelector.selectionPoints.Clear();

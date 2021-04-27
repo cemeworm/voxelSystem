@@ -99,7 +99,7 @@ public class ToolManager : Singleton<ToolManager>
                 else if (Tmode == ToolMode.PlaceVoxel)
                 {
                     Tmode = ToolMode.FaceStretch;
-                    if (!(voxelPlacer.voxelTargetObj is null))
+                    if (!(voxelPlacer.voxelTargetObj == null))
                     {
                         ToolManager.unHighlightObject(voxelPlacer.voxelTargetObj.gameObject);
                         voxelPlacer.voxelTargetObj = null;
@@ -109,7 +109,18 @@ public class ToolManager : Singleton<ToolManager>
                 else if (Tmode == ToolMode.FaceStretch)
                 {
                     Tmode = ToolMode.ObjectManipulation;
-                    if(!(faceStretcher.faceTargetObj is null))
+                    if (faceStretcher.faceSelector.selectionPoints.Count > 0)
+                    {
+                        for (int i = faceStretcher.faceSelector.selectionPoints.Count - 1; i >= 0; i--)
+                        {
+                            Vector3Int deleVec = faceStretcher.faceSelector.selectionPoints[i];
+                            Voxel v = faceStretcher.faceTargetObj.voxelObjectData.GetVoxelAt(deleVec);
+                            v.color = Color.white;
+                        }
+                        faceStretcher.faceSelector.selectionPoints.Clear();
+                        faceStretcher.stretchedPoints.Clear();
+                    }
+                    if (!(faceStretcher.faceTargetObj == null))
                     {
                         ToolManager.unHighlightObject(faceStretcher.faceTargetObj.gameObject);
                         faceStretcher.faceTargetObj = null;
