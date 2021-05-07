@@ -31,7 +31,7 @@ public class HitPointReader : MonoBehaviour
     private void Update()
     {
         SelectVoxel();
-        Debug.Log("update:hitPointReader");
+
     }
 
     private void SelectVoxel()

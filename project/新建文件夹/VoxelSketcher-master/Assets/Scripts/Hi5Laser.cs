@@ -83,7 +83,6 @@ namespace Hi5_Interaction_Core
 
         internal void enAbled()
         {
-            Debug.Log("enAbled");
             holder = new GameObject();
             finger = HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform;
             finger.localRotation = Quaternion.Euler(0,90,0);
@@ -142,7 +141,6 @@ namespace Hi5_Interaction_Core
 
         private void Update()
         {
-            Debug.Log("update:Hi5Laser");
             inputState = vrcon.laserObjectInput();
             if (!isActive)
             {

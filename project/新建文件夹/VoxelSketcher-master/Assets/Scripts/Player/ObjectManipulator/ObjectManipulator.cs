@@ -38,7 +38,6 @@ public class ObjectManipulator : MonoBehaviour
     private void Update()
     {
         copyObjectInputState = vrcon.copyObjectInput();
-        Debug.Log("update:manipulator");
         ProcessInput(ToolManager.Instance.Imode);
         vrcon.WorldChange();
     }
@@ -166,7 +165,6 @@ public class ObjectManipulator : MonoBehaviour
         
         WorldDataManager.Instance.ActiveWorld.ObjectList[WorldDataManager.Instance.ActiveWorld.ObjectList .Count-1].UpdateObjectMesh();
         creatingObjectBuffer.Clear();
-        Debug.Log("new obj has been created:"+ WorldDataManager.Instance.ActiveWorld.ObjectList .Count);
     }
 
     private void CopyObject()

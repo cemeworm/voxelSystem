@@ -72,7 +72,6 @@ public class FaceStretcher : MonoBehaviour
 
         if (vrcon.helpImageInput() == 1)
         {
-            Debug.Log("vrcon.helpImageInput");
             helpOptions.gameObject.SetActive(true);
             userGuide.SetActive(true);
         }
@@ -117,7 +116,6 @@ public class FaceStretcher : MonoBehaviour
             {
                 m_upCursorPoint = null;
                 m_downCursorPoint = vrcon.HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position;
-                Debug.Log("vrcon.pullFaceInput.stateDown");
             }
 
             if (pullInputState == 2)

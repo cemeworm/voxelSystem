@@ -27,7 +27,6 @@ public class ObjectSelector : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log("update:objectselector");
         ProcessInput(ToolManager.Instance.Imode);           
     }
 

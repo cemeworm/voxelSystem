@@ -30,14 +30,7 @@ namespace HI5.VRCalibration
                         m_MenuSM.State = MenuState.Main;
                     else
                     {
-                        /*if (HI5_Manager.GetGloveStatus().IsLeftGloveAvailable)
-                            Debug.Log("IsLeftGloveAvailable");
-                        if (HI5_Manager.GetGloveStatus().IsRightGloveAvailable)
-                            Debug.Log("IsRightGloveAvailable");
-                        if (HI5_BindInfoManager.IsRightGloveBinded)
-                            Debug.Log("IsRightGloveBinded");
-                        if (HI5_BindInfoManager.IsLeftGloveBinded)
-                            Debug.Log("IsLeftGloveBinded");*/
+
                         if (HI5_Manager.GetGloveStatus().IsLeftGloveAvailable 
                             && HI5_Manager.GetGloveStatus().IsRightGloveAvailable
                             && HI5_BindInfoManager.IsLeftGloveBinded && HI5_BindInfoManager.IsRightGloveBinded)

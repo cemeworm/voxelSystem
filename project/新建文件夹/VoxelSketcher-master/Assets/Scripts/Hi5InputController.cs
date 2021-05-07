@@ -575,7 +575,6 @@ namespace Hi5_Interaction_Core
 
         private void Start()
         {
-            Debug.Log("Start:inputController");
             hi5_object_judgeMent_1 = new Hi5_Object_JudgeMent();
             hi5_object_judgeMent_2 = new Hi5_Object_JudgeMent();
             HI5_Left_Human_Collider = GameObject.Find("HI5_Left_Human_Collider").GetComponent<Hi5_Glove_Interaction_Hand>();
@@ -626,28 +625,22 @@ namespace Hi5_Interaction_Core
         {
             if (worldOptions.gameObject.activeSelf)
             {
-                Debug.Log("worldOptions.gameObject.activeSelf");
                 ButtonCreate.setButtonPosition(0.1f);
-                /*Debug.Log("button  "+"x:" + ButtonCreate.buttonPosition.x + " y:" + ButtonCreate.buttonPosition.y + " z:" + ButtonCreate.buttonPosition.y);
-                    Debug.Log("finger  "+"x:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.x + " y:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.y + " z:" + HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position.z);*/
                 if ((ButtonCreate.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint()) || hi5_object_judgeMent_1.IsHandIndexPoint())
                 {
                     worldOptions.OnPressForCreate();
                 }
                 ButtonSwitch.setButtonPosition(0.0f);
-                Debug.Log(ButtonSwitch.buttonPosition);
                 if ((ButtonSwitch.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint()) || hi5_object_judgeMent_1.IsTwo())
                 {
                     worldOptions.OnPressForSwitch();
                 }
                 ButtonSave.setButtonPosition(-0.1f);
-                Debug.Log(ButtonSave.buttonPosition);
                 if ((ButtonSave.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint()) || hi5_object_judgeMent_1.IsThree())
                 {
                     worldOptions.OnPressForSave();
                 }
                 ButtonLoad.setButtonPosition(-0.2f);
-                Debug.Log(ButtonLoad.buttonPosition);
                 if ((ButtonLoad.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint()) || hi5_object_judgeMent_1.IsFingerPlane())
                 {
                     worldOptions.OnPressForLoad();
@@ -659,7 +652,6 @@ namespace Hi5_Interaction_Core
             }
             else if (mergeOptions.gameObject.activeSelf)
             {
-                Debug.Log("mergeOptions.gameObject.activeSelf");
                 ButtonAnd.setButtonPosition(0.0f);
                 if ((ButtonAnd.IsTouch() && hi5_object_judgeMent_2.IsHandIndexPoint()) || hi5_object_judgeMent_1.IsHandIndexPoint())
                 {

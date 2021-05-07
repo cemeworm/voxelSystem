@@ -222,14 +222,11 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		private void CheckForSpawnPoint()
 		{
-			Debug.Log("CheckForSpawnPoint");
 			foreach (TeleportMarkerBase teleportMarker in teleportMarkers)
 			{
-				Debug.Log("TeleportMarkerBase");
 				TeleportPoint teleportPoint = teleportMarker as TeleportPoint;
 				if (teleportPoint && teleportPoint.playerSpawnPoint)
 				{
-					Debug.Log("teleportPoint.playerSpawnPoint");
 					teleportingToMarker = teleportMarker;
 					TeleportPlayer();
 					break;
@@ -241,7 +238,6 @@ namespace Hi5_Interaction_Core
 
 		private void TeleportPlayer()
 		{
-			Debug.Log("TeleportPlayer");
 			teleporting = false;
 
 			Teleport.PlayerPre.Send(pointedAtTeleportMarker);
@@ -271,7 +267,6 @@ namespace Hi5_Interaction_Core
 				{
 					RaycastHit raycastHit;
 					Vector3 traceDir2 = HI5_Left_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position - HMD.position;
-					Debug.Log("traceDir2" + traceDir2);
 					traceDir2.x = 0.01f;
 					if (Physics.Raycast(teleportPosition + 0.05f * traceDir2, traceDir2, out raycastHit, floorFixupMaximumTraceDistance, floorFixupTraceLayerMask))
 					{
@@ -378,12 +373,10 @@ namespace Hi5_Interaction_Core
 			if (visible)
 			{
 				UpdatePointer();
-				Debug.Log("9");
 
 				if (meshFading)
 				{
 					UpdateTeleportColors();
-					Debug.Log("10");
 
 				}
 
@@ -405,7 +398,6 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		private void UpdatePointer()
 		{
-			Debug.Log("UpdatePointer");
 			Vector3 pointerStart = pointerStartTransform.position;
 			Vector3 pointerEnd;
 			//Vector3 pointerDir = pointerStartTransform_2.position - pointerStartTransform.position;
@@ -417,13 +409,11 @@ namespace Hi5_Interaction_Core
 
 			Vector3 arcVelocity = pointerDir* 7.0f;
 			TeleportMarkerBase hitTeleportMarker = null;
-			Debug.Log(pointerDir);
 
 			//Check pointer angle
 			float dotUp = Vector3.Dot(pointerDir, Vector3.right);
 			float dotForward = Vector3.Dot(pointerDir, player.hmdTransform.forward);
-			Debug.Log("dotUp:"+dotUp);
-			Debug.Log("dotForward:" + dotForward);
+
 
 			bool pointerAtBadAngle = false;
 /*			if ((dotForward > 0.0f && dotUp > 0.75f) || (dotForward < 0.0f && dotUp > 0.5f))
@@ -436,7 +426,6 @@ namespace Hi5_Interaction_Core
 			teleportArc.SetArcData(pointerStart, arcVelocity, true, pointerAtBadAngle);
 			if (teleportArc.DrawArc(out hitInfo))
 			{
-				Debug.Log("DrawArc" );
 				hitSomething = true;
 				hitTeleportMarker = hitInfo.collider.GetComponentInParent<TeleportMarkerBase>();
 			}
@@ -450,7 +439,6 @@ namespace Hi5_Interaction_Core
 
 			if (hitTeleportMarker != null) //Hit a teleport marker
 			{
-				Debug.Log("453:hitTeleportMarker");
 				if (hitTeleportMarker.locked)
 				{
 					teleportArc.SetColor(pointerLockedColor);
@@ -487,7 +475,6 @@ namespace Hi5_Interaction_Core
 					TeleportArea teleportArea = pointedAtTeleportMarker as TeleportArea;
 					if (teleportArea != null && !teleportArea.locked && playAreaPreviewTransform != null)
 					{
-						Debug.Log("teleportArea");
 						Vector3 offsetToUse = playerFeetOffset;
 
 						//Adjust the actual offset to prevent the play area marker from moving too much
@@ -518,7 +505,6 @@ namespace Hi5_Interaction_Core
 			}
 			else //Hit neither
 			{
-				Debug.Log("HitNeither");
 				destinationReticleTransform.gameObject.SetActive(false);
 				offsetReticleTransform.gameObject.SetActive(false);
 
@@ -594,7 +580,6 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		void FixedUpdate()
 		{
-			Debug.Log("FixedUpdate");
 
 			if (!visible)
 			{
@@ -615,7 +600,6 @@ namespace Hi5_Interaction_Core
 						RaycastHit raycastHit;
 						//Vector3 traceDir1 = HI5_Left_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position- HMD.position;
 						Vector3 traceDir = Vector3.down;
-						Debug.Log(traceDir);
 						if (Physics.Raycast(pointedAtPosition + 0.05f * traceDir, traceDir, out raycastHit, floorFixupMaximumTraceDistance, floorFixupTraceLayerMask))
 						{
 							floorDebugSphere.transform.position = raycastHit.point;
@@ -652,7 +636,6 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		private void OnChaperoneInfoInitialized()
 		{
-			Debug.Log("OnChaperoneInfoInitialized");
 
 			ChaperoneInfo chaperone = ChaperoneInfo.instance;
 
@@ -727,7 +710,6 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		private void HidePointer()
 		{
-			Debug.Log("HidePointer");
 
 			if (visible)
 			{
@@ -789,7 +771,6 @@ namespace Hi5_Interaction_Core
 /*		private void ShowPointer(Hand HI5_Left_Human_Collider, Hand oldPointerHand)*/
 		private void ShowPointer()
 		{
-			Debug.Log("ShowPointer");
 
 			if (!visible)
 			{
@@ -803,10 +784,8 @@ namespace Hi5_Interaction_Core
 
 				foreach (TeleportMarkerBase teleportMarker in teleportMarkers)
 				{
-					Debug.Log("teleportMarker");
 					if (teleportMarker.markerActive && teleportMarker.ShouldActivate(player.feetPositionGuess))
 					{
-						Debug.Log("markerActive");
 
 						teleportMarker.gameObject.SetActive(true);
 						teleportMarker.Highlight(false);
@@ -854,10 +833,8 @@ namespace Hi5_Interaction_Core
 
 			if (pointerHand)
 			{
-				Debug.Log("pointHand");
 				pointerStartTransform = GetPointerStartTransform();
 				pointerStartTransform_2 = GetPointerStartTransform_2();
-				Debug.Log("pointerStartTransform"+pointerStartTransform);
 
 
 				/*				if (HI5_Left_Human_Collider.currentAttachedObject != null)
@@ -933,14 +910,11 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		private void TryTeleportPlayer()
 		{
-			Debug.Log("TryTeleportPlayer");
 			if (visible && !teleporting)
 			{
-				Debug.Log("teleporting");
 
 				if (pointedAtTeleportMarker != null && pointedAtTeleportMarker.locked == false)
 				{
-					Debug.Log("pointedAtTeleportMarker");
 
 					//Pointing at an unlocked teleport marker
 					teleportingToMarker = pointedAtTeleportMarker;
@@ -955,7 +929,6 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		private void InitiateTeleportFade()
 		{
-			Debug.Log("InitiateTeleportFade");
 			teleporting = true;
 
 			currentFadeTime = teleportFadeTime;
@@ -985,7 +958,6 @@ namespace Hi5_Interaction_Core
 		//-------------------------------------------------
 		private void HighlightSelected(TeleportMarkerBase hitTeleportMarker)
 		{
-			Debug.Log("HighlightSelected");
 			if (pointedAtTeleportMarker != hitTeleportMarker) //Pointing at a new teleport marker
 			{
 				if (pointedAtTeleportMarker != null)

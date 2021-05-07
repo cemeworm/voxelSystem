@@ -9,6 +9,7 @@ public class WorldDataManager : Singleton<WorldDataManager>
 {
     private List<WorldData> m_availableWorlds;
     public int objectCount;
+    public WorldObject wb;
 
     public WorldData ActiveWorld { get; private set; }
 
@@ -16,6 +17,7 @@ public class WorldDataManager : Singleton<WorldDataManager>
     {
         base.Awake();
         m_availableWorlds = new List<WorldData>();
+        wb = GameObject.Find("WorldObject").GetComponent<WorldObject>();
     }
 
 
@@ -23,6 +25,8 @@ public class WorldDataManager : Singleton<WorldDataManager>
     public WorldData CreateNewWorld(string name)
     {
         WorldData world = new WorldData(name);
+        Debug.Log("world_name:" + world.name);
+        Debug.Log("newworldname:" + name);
         m_availableWorlds.Add(world);
         return world;
     }
@@ -37,31 +41,33 @@ public class WorldDataManager : Singleton<WorldDataManager>
             for (int i = objectCount-1; i >= 0; i--)
             {
                 ActiveWorld.DeleteObject(i);
-                Debug.Log("DeleteObject! " + i);
             }
             //ActiveWorld.UpdateAllObjects();
         }
         ActiveWorld = m_availableWorlds.Find(x => x.name == name);
-        if(System.IO.Directory.Exists(Application.dataPath + "/saveScene/" + ActiveWorld.name + ".save"))
+        Debug.Log("activateworldname:" + name);
+        Debug.Log("activeteworldsize:" + ActiveWorld.worldSize);
+        if (wb.initiveScene == 0)
         {
-            BinaryFormatter bf = new BinaryFormatter();
-            var path = Application.dataPath + "/saveScene/" + ActiveWorld.name + ".save";
-            if (System.IO.Directory.Exists(path))
+            if (Application.dataPath != null)
             {
-                Debug.Log("Load Path Doesn't Exist!");
-                var fs = File.Open(Application.dataPath + "/saveScene/" + ActiveWorld.name + ".save", FileMode.Open);
-                fs.Seek(0, SeekOrigin.Begin);
-                SaveData saveData = (SaveData)bf.Deserialize(fs);
-                fs.Close();
-                Debug.Log("Load " + ActiveWorld.name);
-                ActiveWorld.WorldInit(saveData.Objs, saveData.worldSize);
-                WorldDataManager.Instance.objectCount = WorldDataManager.Instance.ActiveWorld.ObjectList.Count;
+                var path = Application.dataPath + "/saveScene/" + name + ".save";
+                if (System.IO.File.Exists(path) && wb.loadState != 1)
+                {
+                    BinaryFormatter bf = new BinaryFormatter();
+                    var fs = File.Open(Application.dataPath + "/saveScene/" + name + ".save", FileMode.Open);
+                    fs.Seek(0, SeekOrigin.Begin);
+                    SaveData saveData = (SaveData)bf.Deserialize(fs);
+                    fs.Close();
+                    Debug.Log("Load " + name);
+                    ActiveWorld.WorldInit(saveData.Objs, saveData.worldSize);
+                    WorldDataManager.Instance.objectCount = WorldDataManager.Instance.ActiveWorld.ObjectList.Count;
+                }
             }
         }
-        else
-        {
-            ActiveWorld.worldSize = 0.05f;
-        }
+        ActiveWorld.UpdateAllObjects();
+        wb.initiveScene = 0;
+        wb.loadState = 0;
     }
 
     public void NextWorld()
@@ -75,10 +81,9 @@ public class WorldDataManager : Singleton<WorldDataManager>
             }
             int counter = (Convert.ToInt32(ActiveWorld.name) + 1) % m_availableWorlds.Count;
             string name = counter.ToString();
-            Debug.Log("m_availableWorlds.Count! " + m_availableWorlds.Count);
-            Debug.Log("name! "+ name);
+            Debug.Log("nextworldname:" + name);
+
             objectCount = ActiveWorld.ObjectList.Count;
-            Debug.Log("objectCount:" + objectCount);
             ActivateWorld(name);
         }
         

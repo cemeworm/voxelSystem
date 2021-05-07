@@ -122,7 +122,8 @@ namespace Hi5_Interaction_Core
                         if (item.GetComponent<MeshRenderer>() != null)
                         {
                             item.SetOrgColor();
-                            //Debug.Log("adfasdfgsagfsagsag");
+                            //
+                            //.Log("adfasdfgsagfsagsag");
                             // item.orgColor = item.GetComponent<MeshRenderer>().material.color;
                         }
 

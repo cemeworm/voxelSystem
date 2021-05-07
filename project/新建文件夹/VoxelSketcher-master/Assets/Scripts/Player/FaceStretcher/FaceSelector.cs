@@ -107,7 +107,7 @@ public class FaceSelector : MonoBehaviour
                 }
                 if(vrcon.LeftHandFist() == 1)
                 {
-                    Debug.Log("LeftHandFist");
+                    
                     EscSelection();
                 }
             }
@@ -118,12 +118,10 @@ public class FaceSelector : MonoBehaviour
     {
         m_upPoint = null;
         m_downPoint = null;
-        Debug.Log("selectFaceInput");
         if (hitPointReader.hitting)
         {
             m_downPoint = hitPointReader.hitPoint;
             normal = m_downPoint.Value.normal;
-            Debug.Log("hit position: "+m_downPoint.Value.position);
         }
         else
         {
@@ -137,7 +135,6 @@ public class FaceSelector : MonoBehaviour
          HitPoint currentPoint = hitPointReader.hitPoint;
          if (m_downPoint != null && hitPointReader.hitting)
          {
-            Debug.Log("m_downPoint");
              //Must be same normal face
              if (currentPoint.normal == m_downPoint.Value.normal &&
                  Vector3.Dot(currentPoint.position - m_downPoint.Value.position, currentPoint.normal) == 0)
@@ -184,16 +181,11 @@ public class FaceSelector : MonoBehaviour
     {
         if (selectionPoints.Count > 0)
         {
-            Debug.Log("selectionPoints.Count:" + selectionPoints.Count);
             for (int i = selectionPoints.Count - 1; i >= 0; i--)
             {
                 Vector3Int deleVec = selectionPoints[i];
-                Debug.Log("deleVec:" + deleVec);
                 Voxel v = faceStretcher.faceTargetObj.voxelObjectData.GetVoxelAt(deleVec);
-                Debug.Log("former_v.color:" + v.color);
                 v.color = Color.white;
-                Debug.Log("latter_v.color:" + v.color);
-                Debug.Log("white_color:" + Color.white);
 
 
             }

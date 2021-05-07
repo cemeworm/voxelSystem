@@ -38,7 +38,6 @@ public class ToolManager : Singleton<ToolManager>
         this.Imode = InteractionMode.VR;
         vrcon = GameObject.Find("Hi5InputController").GetComponent<Hi5InputController>();
         Switch_Mode_Button_Text = GameObject.Find("Switch_Mode_Button/Switch_Text").GetComponent<TextMesh>();
-        Debug.Log("text:"+Switch_Mode_Button_Text.text);
         objectManipulator = GameObject.Find("ObjectManipulator").GetComponent<ObjectManipulator>();
         steamVRObjects = GameObject.Find("SteamVRObjects").transform;
         plane = GameObject.Find("Plane").transform;
@@ -48,7 +47,6 @@ public class ToolManager : Singleton<ToolManager>
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("update:toolmanager");
         ToolModeUpdate();
         InteractionModeUpdate();
         UpPosition();
@@ -131,7 +129,6 @@ public class ToolManager : Singleton<ToolManager>
                     }
                     ToolModeSwitching();
                 }
-                Debug.Log("Current Mode: "+Tmode);
             }
         }
     }
@@ -173,13 +170,11 @@ public class ToolManager : Singleton<ToolManager>
         if (Input.GetKeyDown(KeyCode.F4) && Imode == InteractionMode.Desktop)
         {
             Imode = InteractionMode.VR;
-            Debug.Log("InteractionMode.VR");
         }
         // VR to desktop
         if (Input.GetKeyDown(KeyCode.F5) && Imode == InteractionMode.VR)
         {
             Imode = InteractionMode.Desktop;
-            Debug.Log("InteractionMode.Desktop");
         }
     }
 
