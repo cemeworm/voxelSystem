@@ -16,6 +16,8 @@ public class ToolManager : Singleton<ToolManager>
     //public ObjectSelector objectSelector;
     private Hi5InputController vrcon;
     public UnityEngine.TextMesh Switch_Mode_Button_Text;
+    public Transform steamVRObjects;
+    public Transform plane;
 
     public enum ToolMode
     {
@@ -38,8 +40,8 @@ public class ToolManager : Singleton<ToolManager>
         Switch_Mode_Button_Text = GameObject.Find("Switch_Mode_Button/Switch_Text").GetComponent<TextMesh>();
         Debug.Log("text:"+Switch_Mode_Button_Text.text);
         objectManipulator = GameObject.Find("ObjectManipulator").GetComponent<ObjectManipulator>();
-/*        objectSelector = GameObject.Find("ObjectSelector").GetComponent<ObjectSelector>();*/
-
+        steamVRObjects = GameObject.Find("SteamVRObjects").transform;
+        plane = GameObject.Find("Plane").transform;
         ToolModeSwitching();
     }
 
@@ -49,6 +51,8 @@ public class ToolManager : Singleton<ToolManager>
         Debug.Log("update:toolmanager");
         ToolModeUpdate();
         InteractionModeUpdate();
+        UpPosition();
+        DownPosition();
         
     }
 
@@ -192,4 +196,28 @@ public class ToolManager : Singleton<ToolManager>
     {
         Destroy(obj.GetComponent<Outline>());
     }
+
+    private void UpPosition()
+    {
+
+        if (vrcon.upUp() == 1 || vrcon.upUp() == 2)
+        {
+            steamVRObjects.Translate(new Vector3(0, (float)0.1, 0));
+            plane.Translate(new Vector3(0, (float)0.1, 0));
+
+        }
+    }
+
+    private void DownPosition()
+    {
+
+        if (vrcon.downDown() == 1 || vrcon.downDown() == 2)
+        {
+            steamVRObjects.Translate(new Vector3(0, -(float)0.1, 0));
+            plane.Translate(new Vector3(0, -(float)0.1, 0));
+
+        }
+
+    }
+
 }

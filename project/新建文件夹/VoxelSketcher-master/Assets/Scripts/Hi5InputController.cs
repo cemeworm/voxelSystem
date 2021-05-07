@@ -52,6 +52,8 @@ namespace Hi5_Interaction_Core
         public int laserObjectInput_stateMonitor = 0;
         public int helpImageInput_stateMonitor = 0;
         public int deleteFaceInput_stateMonitor = 0;
+        public int upUp_stateMonitor = 0;
+        public int downDown_stateMonitor = 0;
 
 
 
@@ -505,6 +507,58 @@ namespace Hi5_Interaction_Core
             return state;
         }
 
+        public int upUp()
+        {
+            int state = 0;
+            if (hi5_object_judgeMent_1.IsThree() && hi5_object_judgeMent_2.IsThree())
+            {
+                nowAcitonIndex = 18;
+                if (nowAcitonIndex != lastAcitonIndex && upUp_stateMonitor == 0)
+                {
+                    state = 1;
+                    upUp_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
+                }
+                else if (nowAcitonIndex == lastAcitonIndex && upUp_stateMonitor == 1)
+                {
+                    state = 2;
+                }
+            }
+            else if (state == 0 && upUp_stateMonitor == 1)
+            {
+                upUp_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
+            return state;
+        }
+
+        public int downDown()
+        {
+            int state = 0;
+            if (hi5_object_judgeMent_1.IsTwo() && hi5_object_judgeMent_2.IsTwo())
+            {
+                nowAcitonIndex = 19;
+                if (nowAcitonIndex != lastAcitonIndex && downDown_stateMonitor == 0)
+                {
+                    state = 1;
+                    downDown_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
+                }
+                else if (nowAcitonIndex == lastAcitonIndex && downDown_stateMonitor == 1)
+                {
+                    state = 2;
+                }
+            }
+            else if (state == 0 && downDown_stateMonitor == 1)
+            {
+                downDown_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
+            return state;
+        }
+
         public int LeftHandFist()
         {
             int state = 0;
@@ -566,14 +620,6 @@ namespace Hi5_Interaction_Core
         private void Update()
         {
 
-        }
-
-        internal void upUp()
-        {
-            if (hi5_object_judgeMent_1.IsHandIndexPoint())
-            {
-
-            }
         }
 
         internal void WorldChange()
