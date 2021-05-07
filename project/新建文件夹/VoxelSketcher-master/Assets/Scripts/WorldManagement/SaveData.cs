@@ -20,7 +20,7 @@ public class SaveData
 		}
 		BinaryFormatter bf = new BinaryFormatter();
 		
-		var fs = File.Create(Application.dataPath + "/"+ SaveFileName + ".save");
+		var fs = File.Create(Application.dataPath + "/saveScene/"+ SaveFileName + ".save");
 		bf.Serialize(fs, saveData);
 		fs.Close();
 		return saveData;
@@ -28,17 +28,18 @@ public class SaveData
 	static public void LoadWorldData(string SaveFileName)
 	{
 		BinaryFormatter bf = new BinaryFormatter();
-		var path = Application.dataPath + "/" + SaveFileName + ".save";
-		if (!System.IO.Directory.Exists(path)) Debug.LogError("Load Path Doesn't Exist!");
-		var fs = File.Open(Application.dataPath + "/" + SaveFileName + ".save",FileMode.Open);
-		fs.Seek(0, SeekOrigin.Begin);
-		SaveData saveData = (SaveData)bf.Deserialize(fs);
-		fs.Close();
-		Debug.Log("Load " + SaveFileName);
-		var world=WorldDataManager.Instance.CreateNewWorld(SaveFileName);
-		world.WorldInit(saveData.Objs, saveData.worldSize);
-
-		WorldDataManager.Instance.ActivateWorld(SaveFileName);
-
+		var path = Application.dataPath + "/saveScene/" + "load" + ".save";
+		if (System.IO.Directory.Exists(path))
+		{
+			var fs = File.Open(Application.dataPath + "/saveScene/" + "load" + ".save", FileMode.Open);
+			fs.Seek(0, SeekOrigin.Begin);
+			SaveData saveData = (SaveData)bf.Deserialize(fs);
+			fs.Close();
+			Debug.Log("Load " + SaveFileName);
+			var world = WorldDataManager.Instance.CreateNewWorld(SaveFileName);
+			world.WorldInit(saveData.Objs, saveData.worldSize);
+            WorldDataManager.Instance.objectCount = WorldDataManager.Instance.ActiveWorld.ObjectList.Count;
+			WorldDataManager.Instance.ActivateWorld(SaveFileName);
+		}
 	}
 }

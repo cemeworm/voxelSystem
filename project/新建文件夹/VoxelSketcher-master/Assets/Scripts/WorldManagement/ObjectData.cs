@@ -110,7 +110,10 @@ public class ObjectData
         }
         else
         {
-            VoxelDataDict.Add(localPosition, v);
+            if (!VoxelDataDict.ContainsKey(localPosition))
+            {
+                VoxelDataDict.Add(localPosition, v);
+            }
         }
         
     }

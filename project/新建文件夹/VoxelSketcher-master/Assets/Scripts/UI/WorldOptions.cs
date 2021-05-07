@@ -50,7 +50,8 @@ public class WorldOptions : MonoBehaviour
         string name = this.worldCounter + "";
         SaveData.SaveWorldData(name);
         // TODO: not implemented
-        SaveData.LoadWorldData(name);
+        string after_name = (Convert.ToInt32(WorldDataManager.Instance.ActiveWorld.name) + 1).ToString();
+        SaveData.LoadWorldData(after_name);
         Debug.Log("OnPressForLoad!");
         this.gameObject.SetActive(false);
     }

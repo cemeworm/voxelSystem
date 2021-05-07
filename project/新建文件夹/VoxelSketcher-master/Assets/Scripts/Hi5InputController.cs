@@ -568,6 +568,14 @@ namespace Hi5_Interaction_Core
 
         }
 
+        internal void upUp()
+        {
+            if (hi5_object_judgeMent_1.IsHandIndexPoint())
+            {
+
+            }
+        }
+
         internal void WorldChange()
         {
             if (worldOptions.gameObject.activeSelf)
