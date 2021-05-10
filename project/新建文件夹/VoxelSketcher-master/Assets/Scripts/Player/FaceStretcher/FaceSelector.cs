@@ -29,6 +29,16 @@ public class FaceSelector : MonoBehaviour
     private HitPoint? m_upPoint;
 
     // Start is called before the first frame update
+
+    public static Vector3[] grib =
+    {
+        new Vector3(0,-(float)0.001,0),//y-1
+		new Vector3(0,(float)0.001,0),//y+1
+		new Vector3(0,0,-(float)0.001),//z-1
+		new Vector3(0,0,(float)0.001),//z+1
+		new Vector3(-(float)0.001,0,0),//x-1
+		new Vector3((float)0.001,0,0)//x+1
+};
     private void Awake()
     {
         normal = null;
@@ -62,7 +72,18 @@ public class FaceSelector : MonoBehaviour
         {
             if (vrcon.selectObjectInput() == 1)
             {
-                ObjectComponent os = WorldDataManager.Instance.ActiveWorld.GetOneObjectAt(hitPointReader.hitPoint.position);
+                //ObjectComponent os = WorldDataManager.Instance.ActiveWorld.GetOneObjectAt(vrcon.HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position);
+                ObjectComponent os = new ObjectComponent();
+                foreach (Vector3 g in grib)
+                {
+                    os = WorldDataManager.Instance.ActiveWorld.GetOneObjectAt(hitPointReader.hitPoint.position + g);
+                    if (!(os == null))
+                    {
+                        break;
+                    }
+                }
+                //Debug.Log("hitPointReader.hitPoint.position:"+hitPointReader.hitPoint.position);
+
                 if (!(os == null))
                 {
                     if (faceStretcher.faceTargetObj != os)

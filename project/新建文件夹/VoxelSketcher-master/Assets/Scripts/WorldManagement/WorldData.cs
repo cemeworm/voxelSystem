@@ -300,15 +300,17 @@ public class WorldData
     }
 
     public ObjectComponent GetOneObjectAt(Vector3 worldPos)
-    {
+    { 
         ObjectComponent result = new ObjectComponent();
         foreach (var o in ObjectList)
         {
             Vector3Int intPos = MathHelper.WorldPosToWorldIntPos(worldPos / WorldDataManager.Instance.ActiveWorld.worldSize);
             //local position
+            Debug.Log("text_intPos:" + intPos);
             if (o.voxelObjectData.GetVoxelAt(intPos - o.gridBasePoint).voxel != null)
             {
                 result = o;
+                Debug.Log("text_get_one_object_at:" + result.gridBasePoint);
             }
         }
         return result;
