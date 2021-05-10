@@ -604,14 +604,12 @@ namespace Hi5_Interaction_Core
             voxelMode = GameObject.Find("VoxelMode");
             faceMode = GameObject.Find("FaceMode");
             systemHandle = GameObject.Find("SystemHandle");
-            userGuide.SetActive(false);
             objectMode.SetActive(false);
             voxelMode.SetActive(false);
             faceMode.SetActive(false);
             systemHandle.SetActive(false);
             mergeOptions.gameObject.SetActive(false);
             worldOptions.gameObject.SetActive(false);
-            helpOptions.gameObject.SetActive(false);
 
         }
 

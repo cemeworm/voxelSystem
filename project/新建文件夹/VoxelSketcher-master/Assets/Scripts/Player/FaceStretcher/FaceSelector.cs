@@ -62,7 +62,7 @@ public class FaceSelector : MonoBehaviour
         {
             if (vrcon.selectObjectInput() == 1)
             {
-                ObjectComponent os = WorldDataManager.Instance.ActiveWorld.GetOneObjectAt(vrcon.HI5_Right_Human_Collider.mFingers[Hi5_Glove_Interaction_Finger_Type.EIndex].mChildNodes[4].transform.position);
+                ObjectComponent os = WorldDataManager.Instance.ActiveWorld.GetOneObjectAt(hitPointReader.hitPoint.position);
                 if (!(os == null))
                 {
                     if (faceStretcher.faceTargetObj != os)

@@ -265,7 +265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3100d269af8cec4facdebccd8c5b6ee, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f2ad4503061777a408b505d516364507, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -869,7 +869,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 3
+  index: 2
   origin: {fileID: 780902040}
 --- !u!135 &102987438
 SphereCollider:
@@ -1174,6 +1174,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   om: {fileID: 1303126173}
   worldCounter: 0
+  wb: {fileID: 0}
 --- !u!114 &132320988
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2830,6 +2831,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Persistent: 1
   objectCount: 0
+  wb: {fileID: 0}
 --- !u!4 &375444409
 Transform:
   m_ObjectHideFlags: 0
@@ -5067,6 +5069,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a09298c657ef2746b6dda574383f852, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadState: 0
+  initiveScene: 0
 --- !u!1 &710982250
 GameObject:
   m_ObjectHideFlags: 0
@@ -6335,7 +6339,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d72635773f76d404e95f7c2b9004c916, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 74d1135bcebd7ca448a1eb78b72edebe, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8302,7 +8306,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4e4fa424fe1eebb438115898a81d8d8d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ce752581e5209c743a368e4510283643, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10699,7 +10703,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2eac74c5b1512e449833393851a42c0a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 205f63f94dfcab844b2a9f1c79844e96, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11689,7 +11693,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 21af13eb8b40f7d44b1e7efa5635c8cb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 05f0d43b08a5b7f499ba885242421386, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13385,7 +13389,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d37c2cf88f7c59f4c8cf5d3812568143, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  index: 4
+  index: 3
   origin: {fileID: 148529297}
 --- !u!135 &1993439528
 SphereCollider:
