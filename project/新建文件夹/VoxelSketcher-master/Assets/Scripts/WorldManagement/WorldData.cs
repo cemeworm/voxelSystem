@@ -287,13 +287,26 @@ public class WorldData
     public ObjectComponent[] GetVoxelObjectsAt(Vector3 worldPos)
     {
         List<ObjectComponent> result = new List<ObjectComponent>();
+        bool ex = false;
         foreach (var o in ObjectList)
         {
             Vector3Int intPos = MathHelper.WorldPosToWorldIntPos(worldPos / WorldDataManager.Instance.ActiveWorld.worldSize);
             //local position
             if (o.voxelObjectData.GetVoxelAt(intPos-o.gridBasePoint).voxel != null)
             {
-                result.Add(o);
+                foreach(ObjectComponent ob in result)
+                {
+                    if (ob.gridBasePoint == o.gridBasePoint)
+                    {
+                        ex = true;
+                        break;
+                    }
+                }
+                if(ex == false)
+                {
+                    result.Add(o);
+                }
+                ex = false;
             }
         }
         return result.ToArray();
