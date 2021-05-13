@@ -18,6 +18,9 @@ public class ToolManager : Singleton<ToolManager>
     public UnityEngine.TextMesh Switch_Mode_Button_Text;
     public Transform steamVRObjects;
     public Transform plane;
+    public WorldData worldData;
+    public WorldObject wb;
+
 
     public enum ToolMode
     {
@@ -42,6 +45,8 @@ public class ToolManager : Singleton<ToolManager>
         steamVRObjects = GameObject.Find("SteamVRObjects").transform;
         plane = GameObject.Find("Plane").transform;
         ToolModeSwitching();
+        wb = GameObject.Find("WorldObject").GetComponent<WorldObject>();
+        //worldData = new WorldData();
     }
 
     // Update is called once per frame
@@ -51,7 +56,7 @@ public class ToolManager : Singleton<ToolManager>
         InteractionModeUpdate();
         UpPosition();
         DownPosition();
-        
+        ChangeWorldSize();
     }
 
     private void ToolModeUpdate()
@@ -213,6 +218,22 @@ public class ToolManager : Singleton<ToolManager>
 
         }
 
+    }
+
+    private void ChangeWorldSize()
+    {
+        if(vrcon.changeSize() == 1)
+        {
+            wb = GameObject.Find("WorldObject").GetComponent<WorldObject>();
+            if(wb.transform.localScale == new Vector3Int(1,1,1))
+            {
+                wb.transform.localScale = new Vector3Int(50,50, 50);
+            }
+            else if (wb.transform.localScale == new Vector3Int(50, 50, 50))
+            {
+                wb.transform.localScale = new Vector3Int(1, 1, 1);
+            }
+        }
     }
 
 }

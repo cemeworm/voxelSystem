@@ -63,7 +63,6 @@ public class WorldOptions : MonoBehaviour
         string name = this.worldCounter + "";
         SaveData.SaveWorldData(name);
         Debug.Log("saveworldname:" + name);
-        // TODO: not implemented
         if (WorldDataManager.Instance.ActiveWorld != null)
         {
             for (int i = WorldDataManager.Instance.ActiveWorld.ObjectList.Count - 1; i >= 0; i--)
@@ -72,6 +71,8 @@ public class WorldOptions : MonoBehaviour
             }
         }
         wb.loadState = 1;
+        this.worldCounter++;
+        name = this.worldCounter + "";
         SaveData.LoadWorldData(name);
         Debug.Log("OnPressForLoad!:"+name);
         this.gameObject.SetActive(false);

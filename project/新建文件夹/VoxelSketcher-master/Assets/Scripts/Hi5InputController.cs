@@ -54,6 +54,7 @@ namespace Hi5_Interaction_Core
         public int deleteFaceInput_stateMonitor = 0;
         public int upUp_stateMonitor = 0;
         public int downDown_stateMonitor = 0;
+        public int changeSize_stateMonitor = 0;
 
 
 
@@ -553,6 +554,32 @@ namespace Hi5_Interaction_Core
             else if (state == 0 && downDown_stateMonitor == 1)
             {
                 downDown_stateMonitor = 0;
+                lastAcitonIndex = 0;
+                state = 3;
+            }
+            return state;
+        }
+
+        public int changeSize()
+        {
+            int state = 0;
+            if (hi5_object_judgeMent_1.IsHandFist() && hi5_object_judgeMent_2.IsOK())
+            {
+                nowAcitonIndex = 20;
+                if (nowAcitonIndex != lastAcitonIndex && changeSize_stateMonitor == 0)
+                {
+                    state = 1;
+                    changeSize_stateMonitor = 1;
+                    lastAcitonIndex = nowAcitonIndex;
+                }
+                else if (nowAcitonIndex == lastAcitonIndex && changeSize_stateMonitor == 1)
+                {
+                    state = 2;
+                }
+            }
+            else if (state == 0 && changeSize_stateMonitor == 1)
+            {
+                changeSize_stateMonitor = 0;
                 lastAcitonIndex = 0;
                 state = 3;
             }
